@@ -4,7 +4,7 @@ var express = require("express") // import express
 const cors = require("cors") // import cors
 
 //DESTRUCTURE ENV VARIABLES WITH DEFAULT VALUES
-const PORT = 'https://studysessiontracker.herokuapp.com/'
+const PORT = process.env.PORT || 3000;
 
 // Create Application Object
 var app = express()
