@@ -7,6 +7,20 @@ var ObjectId = require('mongodb').ObjectId;
 // Model definition
 const Session = require("../models/Session");
 
+
+// Get current sessions and display. Search sessions and pull out the session that has end_time = null.
+// This should only return one session. 
+router.get("/current", async (req, res) => {
+  const { db } = mongoose.connection;
+   db.collection("sessions")
+  .find({ end_time: null })
+  .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+  });
+});
+
+
 router.post("/start", async (req, res) => {
   try {
     req.body._id = new ObjectId();
@@ -20,4 +34,28 @@ router.post("/start", async (req, res) => {
   }
 });
 
+// update route for session finish. 
+router.put('/finish', function(req, res) {
+  try {
+    const { db } = mongoose.connection;
+    // push actual lift into your session
+    let update = db.collection('sessions').updateOne(
+      { end_time: null}, // select the session that does not have an end_time, should only be one
+      { $set: { 
+        end_time: new Date(),
+        topic: req.body.topic,
+        desc: req.body.desc,
+        location: req.body.location,
+        distracted: req.body.distracted,
+        social: req.body.social
+      } }
+    )
+    console.log(update)
+
+    res.json(update)
+  } catch(error) {
+    console.log("Error: ------\n", error)
+    res.status(400).json({ error });
+  }
+});
 module.exports = router;
