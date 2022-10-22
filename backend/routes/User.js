@@ -33,7 +33,7 @@ router.post("/login", async (req, res) => {
     // check if the user exists
     const user = await User.findOne({ username: req.body.username });
     if (user) {
-      //check if password matches
+      // check if password matches
       const result = await bcrypt.compare(req.body.password, user.password);
       if (result) {
         // sign token and send it in response

@@ -19,12 +19,14 @@ const Session = ({ route, navigation }) : Node => {
   const [session, setSession] = useState([]);
   const [toggleSocialCheckBox, setToggleSocialCheckBox] = useState(false)
   const [toggleDistractedCheckBox, setToggleDistractedCheckBox] = useState(false)
+  const [refreshToken, setRefreshToken] = useState(false);
+
 
   function SubmitFinishSession(values) {
     values.social = toggleSocialCheckBox
     values.distracted = toggleDistractedCheckBox
     axios.put('https://studysessiontracker.herokuapp.com/session/finish', values).then(function(response) {
-      console.log(values);
+      setRefreshToken(!refreshToken);
     }).catch(function(err) {
       console.log(err);
     }); 
@@ -53,6 +55,7 @@ const Session = ({ route, navigation }) : Node => {
   function SubmitStartSession(values) {
     axios.post('https://studysessiontracker.herokuapp.com/session/start', values).then(function(response) {
       console.log(values);
+      setRefreshToken(!refreshToken)
     }).catch(function(err) {
       console.log(err);
     }); 
@@ -70,7 +73,7 @@ const Session = ({ route, navigation }) : Node => {
       console.log(error)
       alert("Error " + error.message + " | " + url)
     });
-  }, []);
+  }, [refreshToken]);
 
   return <View>
     { session.length <= 0 ? StartSession : FinishSession }
