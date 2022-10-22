@@ -8,7 +8,18 @@ var ObjectId = require('mongodb').ObjectId;
 const Session = require("../models/Session");
 
 
-// Get current sessions and display. Search sessions and pull out the session that has end_time = null.
+// get all sessions
+router.get("/all", async (req, res) => {
+  const { db } = mongoose.connection;
+   db.collection("sessions")
+  .find()
+  .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+  });
+});
+
+// Get current session and display. Search sessions and pull out the session that has end_time = null.
 // This should only return one session. 
 router.get("/current", async (req, res) => {
   const { db } = mongoose.connection;
@@ -19,7 +30,6 @@ router.get("/current", async (req, res) => {
       res.json(result);
   });
 });
-
 
 router.post("/start", async (req, res) => {
   try {
