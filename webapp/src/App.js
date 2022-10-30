@@ -1,10 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from 'react';
 import Donut from "./components/Chart"
+import Navbar from './components/Navbar';
+import Add from './components/Add';
+import Edit from './components/Edit';
 function App() {
+  let [display, setDisplay] = useState(null); // display is going to hold a component
+
+
+  function ToggleRender(component) {
+   console.log(component)
+   if(component === "Graph") setDisplay(<Donut />); 
+   if(component === "Add") setDisplay(<Add />); 
+   if(component === "Edit") setDisplay(<Edit />); 
+  }
+
+  useEffect(() => {
+    ToggleRender("Graph");
+  }, []);
+
   return (
     <div className="App">
-      <Donut />
+      <Navbar toggleRender={ToggleRender} />
+      { display }
     </div>
   );
 }

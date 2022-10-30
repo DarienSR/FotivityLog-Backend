@@ -54,7 +54,6 @@ const Session = ({ route, navigation }) : Node => {
   
   function SubmitStartSession(values) {
     axios.post('https://studysessiontracker.herokuapp.com/session/start', values).then(function(response) {
-      console.log(values);
       setRefreshToken(!refreshToken)
     }).catch(function(err) {
       console.log(err);
