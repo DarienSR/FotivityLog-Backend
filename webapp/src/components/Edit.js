@@ -20,13 +20,15 @@ export default function Edit() {
     });
   }, [refreshToken]);
 
-  function DeleteSession() {
-    alert("Delete")
-  }
-
-  function EditSession() {
-    // pop up modal
-    alert("edit")
+  function DeleteSession(id) {
+    let url = `https://studysessiontracker.herokuapp.com/session/delete/${id}`;
+    axios.delete(url).then(function(response) {
+      alert("Deleted")
+      setRefreshToken(!refreshToken)
+    }).catch(function(error) {
+      console.log(error)
+      alert("Error " + error.message + " | " + url)
+    });
   }
 
   return (
@@ -37,7 +39,7 @@ export default function Edit() {
         <p stlye={styles.headers}>End Time</p>
       </div>
       { sessions !== null ? sessions.map((session) => {
-        return <Session Delete={DeleteSession} Edit={EditSession} session={session} />
+        return <Session Delete={DeleteSession} session={session} />
       }).reverse() : <p>No Sessions Found.</p>}
     </div>
   )

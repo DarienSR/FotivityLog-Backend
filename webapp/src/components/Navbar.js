@@ -12,10 +12,10 @@ export default function Navbar(props) {
 
 const styles = {
   nav: {
-    backgroundColor: 'red',
     height: "5rem",
-    borderBottom: "3px solid black",
     marginBottom: "2rem",
+    borderBottom: '3px solid #eaeaea',
+    boxShadow: '2px 1px #d3c9c9',
   },
   image: {
     height: '50px',
