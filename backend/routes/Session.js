@@ -44,7 +44,7 @@ router.post("/start", async (req, res) => {
   }
 });
 
-// update route for session finish. 
+// update route for current session finish. 
 router.put('/finish', function(req, res) {
   try {
     const { db } = mongoose.connection;
@@ -68,4 +68,38 @@ router.put('/finish', function(req, res) {
     res.status(400).json({ error });
   }
 });
+
+// update route existing session. 
+router.put('/update/:id', function(req, res) {
+  try {
+    const { db } = mongoose.connection;
+    console.log(req.params.id)
+    // push actual lift into your session
+    let update = db.collection('sessions').updateOne(
+      { _id: ObjectId(req.params.id)}, // select the session that does not have an end_time, should only be one
+      { $set: { 
+        topic: req.body.topic,
+        desc: req.body.desc,
+        location: req.body.location,
+        distracted: req.body.distracted,
+        social: req.body.social
+      } }
+    )
+    console.log(update)
+
+    res.json(update)
+  } catch(error) {
+    console.log("Error: ------\n", error)
+    res.status(400).json({ error });
+  }
+});
+
+// delete session
+router.delete("/delete/:id", function(req, res) {
+  const { db } = mongoose.connection;
+  db.collection('sessions').deleteOne({ _id: ObjectId(req.params.id)}, function (err, result) {
+    res.send(result);
+  });
+})
+
 module.exports = router;
