@@ -1,50 +1,45 @@
-import React, { Component } from 'react';
-import Chart from 'react-apexcharts'
-function generateData() {
+import { React } from "react";
+import Chart from "react-apexcharts";
 
-}
-class ApexChart extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
+export default function Heatmap() {
+ 
+    let data = {
     
       series: [{
         name: 'Metric1',
-        data: [20,30,10]
+        data: [10, 30, 10, 4]
       },
       {
         name: 'Metric2',
-        data: [49,34,72,56]
+        data: [10, 30, 10, 4]
       },
       {
         name: 'Metric3',
-        data: [43,67,49]
+        data: [10, 30, 10, 4]
       },
       {
         name: 'Metric4',
-        data: [1, 3]
+        data: [10, 30, 10, 4]
       },
       {
         name: 'Metric5',
-        data: [9,3,10,4]
+        data: [10, 30, 10, 4]
       },
       {
         name: 'Metric6',
-        data: [3]
+        data: [10, 30, 10, 4]
       },
       {
         name: 'Metric7',
-        data: [5,20]
+        data: [10, 30, 10, 4]
       },
       {
         name: 'Metric8',
-        data: [18,12,5]
+        data: [10, 30, 10, 4]
       },
       {
         name: 'Metric9',
-        data: [9,2,5]
+        data: [10, 30, 10, 4]
       }
       ],
       options: {
@@ -60,23 +55,7 @@ class ApexChart extends React.Component {
           text: 'HeatMap Chart (Single color)'
         },
       },
-    
-    
-    };
   }
+  return <Chart options={data.options} series={data.series} type="heatmap" height={350} />
+}
 
-
-
-  render() {
-    return (
-      
-
-  <div id="chart">
-  <Chart options={this.state.options} series={this.state.series} type="heatmap" height={350} />
-  </div>
-     );
-    }
-  }
-
-
-  export default ApexChart;
