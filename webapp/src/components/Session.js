@@ -14,10 +14,11 @@ export default function Session(props) {
   const { value: location, bind: bindLocation, reset: resetLocation } = useInput(props.session.location);
   const { value: social, bind: bindSocial, reset: resetSocial } = useCheckbox(props.session.social);
   const { value: distracted, bind: bindDistracted, reset: resetDistracted } = useCheckbox(props.session.distracted);
+  const { value: deep_work, bind: bindDeep_Work, reset: resetDeep_Work } = useCheckbox(props.session.deep_work);
 
   const UpdateSession = (e) => {
     e.preventDefault()
-    let values = { topic, desc, location, social, distracted }
+    let values = { topic, desc, location, social, distracted, deep_work}
     axios.put('https://studysessiontracker.herokuapp.com/session/finish', values).then(function(response) {
       setRefreshToken(!refreshToken);
     }).catch(function(err) {
@@ -28,8 +29,9 @@ export default function Session(props) {
     resetTopic();
     resetDesc();
     resetSocial();
-    resetLocation()
-    resetDistracted()
+    resetLocation();
+    resetDistracted();
+    resetDeep_Work();
   }
 
 
@@ -59,6 +61,9 @@ export default function Session(props) {
           </label>
           <label style={styles.label}>Distracted
             <input style={styles.input} type="checkbox" {...bindDistracted} />
+          </label>
+          <label style={styles.label}>Deep Work
+            <input style={styles.input} type="checkbox" {...bindDeep_Work} />
           </label>
           <button onClick={UpdateSession}>Save</button>
         </form>

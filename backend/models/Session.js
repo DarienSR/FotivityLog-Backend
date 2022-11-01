@@ -9,7 +9,8 @@ const SessionSchema = new Schema({
   desc: { type: Schema.Types.String, default: "", required: false },
   location: { type: Schema.Types.String, default: "", required: false },
   distracted: { type: Schema.Types.Boolean, default: false },
-  social: { type: Schema.Types.Boolean, default: false }
+  social: { type: Schema.Types.Boolean, default: false },
+  deep_work: { type: Schema.Types.Boolean, default: false } // going in your study session with a purpose and desired outcome
 });
 
 const Session = model("Session", SessionSchema);

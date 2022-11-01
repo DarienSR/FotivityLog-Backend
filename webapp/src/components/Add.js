@@ -41,8 +41,9 @@ export default function Add() {
   const { value: topic, bind: bindTopic, reset: resetTopic } = useInput("");
   const { value: desc, bind: bindDesc, reset: resetDesc } = useInput("");
   const { value: location, bind: bindLocation, reset: resetLocation } = useInput("");
-  const { value: social, bind: bindSocial, reset: resetSocial } = useCheckbox("");
-  const { value: distracted, bind: bindDistracted, reset: resetDistracted } = useCheckbox(social);
+  const { value: social, bind: bindSocial, reset: resetSocial } = useCheckbox(false);
+  const { value: distracted, bind: bindDistracted, reset: resetDistracted } = useCheckbox(false);
+  const { value: deep_work, bind: bindDeep_Work, reset: resetDeep_Work } = useCheckbox(false);
 
   const FinishSession = (e) => {
     e.preventDefault()
@@ -57,8 +58,9 @@ export default function Add() {
     resetTopic();
     resetDesc();
     resetSocial();
-    resetLocation()
-    resetDistracted()
+    resetLocation();
+    resetDistracted();
+    resetDeep_Work();
   }
   let FinishSessionForm = <form>
     <label>Topic
@@ -75,6 +77,9 @@ export default function Add() {
     </label>
     <label>Distracted
       <input type="checkbox" {...bindDistracted} />
+    </label>
+    <label>Deep Work
+      <input type="checkbox" {...bindDeep_Work} />
     </label>
     <button onClick={FinishSession}>Add Session</button>
   </form>

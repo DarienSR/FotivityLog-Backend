@@ -57,7 +57,8 @@ router.put('/finish', function(req, res) {
         desc: req.body.desc,
         location: req.body.location,
         distracted: req.body.distracted,
-        social: req.body.social
+        social: req.body.social,
+        deep_work: req.body.deep_work
       } }
     )
     console.log(update)
@@ -82,7 +83,8 @@ router.put('/update/:id', function(req, res) {
         desc: req.body.desc,
         location: req.body.location,
         distracted: req.body.distracted,
-        social: req.body.social
+        social: req.body.social,
+        deep_work: req.body.deep_work
       } }
     )
     console.log(update)

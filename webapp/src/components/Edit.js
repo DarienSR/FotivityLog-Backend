@@ -54,6 +54,7 @@ let styles = {
     padding: '0.25rem',
     fontWeight: 'bold',
     textDecoration: 'underline',
-    fontSize: '1.5rem'
+    fontSize: '1.5rem',
+    
   }
 }
