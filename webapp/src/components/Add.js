@@ -12,7 +12,7 @@ export default function Add() {
 
   // Check to see if there is an active session
   useEffect(() => {
-    let url = `https://studysessiontracker.herokuapp.com/session/current`;
+    let url = `${process.env.REACT_APP_URL}session/current`;
     axios.get(url).then(function(response) {
       console.log(response)
       setSession(response.data); // [0] is current Session
@@ -25,7 +25,7 @@ export default function Add() {
   const { value: startTime, bind: bindStartTime, reset: resetStartTime } = useInput("");
 
   function AddSession() {
-    axios.post('https://studysessiontracker.herokuapp.com/session/start').then(function(response) {
+    axios.post(`${process.env.REACT_APP_URL}session/start`).then(function(response) {
       console.log(response);
       setRefreshToken(!refreshToken)
     }).catch(function(err) {
@@ -47,8 +47,8 @@ export default function Add() {
 
   const FinishSession = (e) => {
     e.preventDefault()
-    let values = { topic, desc, location, social, distracted }
-    axios.put('https://studysessiontracker.herokuapp.com/session/finish', values).then(function(response) {
+    let values = { topic, desc, location, social, distracted, deep_work }
+    axios.put(`${process.env.REACT_APP_URL}session/finish`, values).then(function(response) {
       setRefreshToken(!refreshToken);
     }).catch(function(err) {
       console.log(err);
@@ -62,7 +62,7 @@ export default function Add() {
     resetDistracted();
     resetDeep_Work();
   }
-  let FinishSessionForm = <form>
+  let FinishSessionForm = <form style={styles.form}>
     <label>Topic
       <input type="text" {...bindTopic} />
     </label>
@@ -89,4 +89,18 @@ export default function Add() {
       { session.length <= 0 ? StartSessionForm : FinishSessionForm  }
     </div>
   )
+
+}
+let styles = {
+  form: {
+    padding: 30,
+    fontSize: 30,
+    display: 'flex',
+    margin: '0 auto',
+    marginTop: '15%',
+    width: '50%',
+    flexDirection: 'column',
+    backgroundColor: 'rgb(235 239 240)', 
+    boxShadow: '1px 2px #debbbb',
+  },
 }

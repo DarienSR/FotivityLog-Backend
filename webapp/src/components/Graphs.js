@@ -12,7 +12,7 @@ export default function Graphs() {
   
   // Check to see if there is an active session
   useEffect(() => {
-    let url = `https://studysessiontracker.herokuapp.com/session/all`;
+    let url = `${process.env.REACT_APP_URL}session/all`;
     axios.get(url).then(function(response) {
       console.log(response.data)
       setSessions(response.data); // [0] is current Session

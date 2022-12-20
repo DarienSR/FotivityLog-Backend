@@ -12,41 +12,39 @@ export default function Session(props) {
   const { value: topic, bind: bindTopic, reset: resetTopic } = useInput(props.session.topic);
   const { value: desc, bind: bindDesc, reset: resetDesc } = useInput(props.session.desc);
   const { value: location, bind: bindLocation, reset: resetLocation } = useInput(props.session.location);
-  const { value: social, bind: bindSocial, reset: resetSocial } = useCheckbox(props.session.social);
-  const { value: distracted, bind: bindDistracted, reset: resetDistracted } = useCheckbox(props.session.distracted);
-  const { value: deep_work, bind: bindDeep_Work, reset: resetDeep_Work } = useCheckbox(props.session.deep_work);
+  const [ social, setSocial] = useState(props.session.social);
+  const [ distracted, setDistracted] = useState(props.session.distracted);
+  const [ deep_work, setDeepWork] = useState(props.session.deep_work);
 
   const UpdateSession = (e) => {
     e.preventDefault()
     let values = { topic, desc, location, social, distracted, deep_work}
-    axios.put('https://studysessiontracker.herokuapp.com/session/finish', values).then(function(response) {
-      setRefreshToken(!refreshToken);
+    axios.put(`${process.env.REACT_APP_URL}session/update/${props.session._id}`, values).then(function(response) {
+      console.log(response);
     }).catch(function(err) {
       console.log(err);
     }); 
-
-    // Reset form
-    resetTopic();
-    resetDesc();
-    resetSocial();
-    resetLocation();
-    resetDistracted();
-    resetDeep_Work();
+    setRefreshToken(!refreshToken)
+    props.UpdateData();
   }
+
 
 
   return (
     <>
-      <div onClick={() => setTogglePopup(!togglePopup)} key={props.session._id} style={styles.session}>
-        <div style={styles.placeholder}></div>
-        <p style={styles.p}>{session_start.toDateString()  } { session_start.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
-        <p style={styles.p}><b>{props.session.topic}</b></p>
-        <p style={styles.p}>{session_end.toDateString()  } { session_end.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
-        <button onClick={() => props.Delete(props.session._id)} style={styles.delete}>DELETE</button>
+      <div style={styles.sessionContainer} key={props.session._id} >
+        <div onClick={() => setTogglePopup(!togglePopup)} style={styles.session}>
+          <div style={styles.placeholder}></div>
+          <p style={styles.p}>{session_start.toDateString()  } { session_start.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+          <p style={styles.p}><b>{props.session.topic}</b></p>
+          <p style={styles.p}>{session_end.toDateString()  } { session_end.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+        </div>
+        <button onClick={() => props.Delete(props.session._id)} style={styles.delete}>X</button>
       </div>
 
-      {togglePopup ? <div style={styles.form}>
-         <form>
+      {togglePopup ? <div style={styles.modal}>
+         <form style={styles.form}>
+         <p style={styles.close} onClick={() => setTogglePopup(!togglePopup)}>EXIT</p>
           <label style={styles.label}>Topic
             <input style={styles.input} type="text" {...bindTopic} />
           </label>
@@ -57,13 +55,13 @@ export default function Session(props) {
             <input style={styles.input} type="text" {...bindLocation} />
           </label>
           <label style={styles.label}>Social
-            <input style={styles.input} type="checkbox" {...bindSocial} />
+            <input style={styles.input} type="checkbox" checked={social} onChange={() => setSocial(!social)} />
           </label>
           <label style={styles.label}>Distracted
-            <input style={styles.input} type="checkbox" {...bindDistracted} />
+          <input style={styles.input} type="checkbox" checked={distracted}  onChange={() => setDistracted(!distracted)} />
           </label>
           <label style={styles.label}>Deep Work
-            <input style={styles.input} type="checkbox" {...bindDeep_Work} />
+            <input style={styles.input} type="checkbox" checked={deep_work} onChange={() => setDeepWork(!deep_work)} />
           </label>
           <button onClick={UpdateSession}>Save</button>
         </form>
@@ -73,8 +71,18 @@ export default function Session(props) {
 }
 
 let styles = {
-  session: {
+  close: {
+    fontSize: '30',
+    color: 'black',
+    fontWeight: 'bold'
+  },
+  sessionContainer: {
+    display: 'flex',
     width: '60%',
+    margin: '0 auto'
+  },
+  session: {
+    width: '90%',
     backgroundColor: 'rgb(235 239 240)',
     margin: '1rem auto',
     height: '3rem',
@@ -83,25 +91,43 @@ let styles = {
     justifyContent: 'center',
     padding: '0.25rem',
     boxShadow: '1px 2px #debbbb',
-    fontSize: '1.3rem'
+    fontSize: '1.3rem',
+    marginRight: 0,
   },
   placeholder: {
     width: '5%',
   },
   delete: {
-    width: '8%',
     backgroundColor: 'rgb(235 239 240)',
+    margin: '1rem auto',
+    alignSelf: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    boxShadow: '1px 2px black',
+    fontSize: '1.3rem',
     border: 'none',
-    borderLeft: '2px solid black',
-    height: '100%',
-    fontWeight: 'bold'
+    marginLeft: 0
   },
   p: {
     width: '30%',
     alignSelf: 'center'
   },
+  modal: {
+    position: 'fixed',
+    zIndex: 3, 
+    bottom: '0',
+    height: '100%',
+    width: '100%',
+    backgroundColor: 'rgba(255, 255, 255, 0.4)'
+  },
   form: {
-
+    display: 'flex',
+    margin: '0 auto',
+    marginTop: '15%',
+    width: '50%',
+    flexDirection: 'column',
+    backgroundColor: 'rgb(235 239 240)', 
+    boxShadow: '1px 2px #debbbb',
   },
   label: {
     margin: '1rem',
