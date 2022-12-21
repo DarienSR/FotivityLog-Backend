@@ -15,6 +15,7 @@ router.get("/all", async (req, res) => {
   .find()
   .toArray(function (err, result) {
       if (err) throw err;
+
       res.json(result);
   });
 });
@@ -49,6 +50,7 @@ router.put('/finish', function(req, res) {
   try {
     const { db } = mongoose.connection;
     // push actual lift into your session
+    console.log("Values: ", req.body.social, req.body.distracted, req.body.deep_work, req.body.topic)
     let update = db.collection('sessions').updateOne(
       { end_time: null}, // select the session that does not have an end_time, should only be one
       { $set: { 
@@ -58,11 +60,10 @@ router.put('/finish', function(req, res) {
         location: req.body.location,
         distracted: req.body.distracted,
         social: req.body.social,
-        deep_work: req.body.deep_work
+        deep_work: req.body.deep_work,
+      
       } }
     )
-    console.log(update)
-
     res.json(update)
   } catch(error) {
     console.log("Error: ------\n", error)
