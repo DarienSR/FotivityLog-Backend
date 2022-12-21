@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useInput } from "../hooks/useInput";
 import { useCheckbox } from '../hooks/useCheckbox';
 import axios from 'axios';
 
 export default function Session(props) {
+  console.log("ewfef", props.session)
   let session_start = new Date(props.session.start_time);
   let session_end = new Date(props.session.end_time);
   let [togglePopup, setTogglePopup] = useState(false);
@@ -11,14 +12,26 @@ export default function Session(props) {
 
   const { value: topic, bind: bindTopic, reset: resetTopic } = useInput(props.session.topic);
   const { value: desc, bind: bindDesc, reset: resetDesc } = useInput(props.session.desc);
+
+  const { value: startTime, bind: bindStartTime, reset: resetStartTime } = useInput(props.session.start_time.toLocaleString());
+
+  let end = null;
+  if(props.session.end_time != null) end = props.session.end_time.toLocaleString();
+  
+  const { value: endTime, bind: bindEndTime, reset: resetEndTime } = useInput(end);
+
   const { value: location, bind: bindLocation, reset: resetLocation } = useInput(props.session.location);
+
+
+
   const [ social, setSocial] = useState(props.session.social);
   const [ distracted, setDistracted] = useState(props.session.distracted);
   const [ deep_work, setDeepWork] = useState(props.session.deep_work);
 
+
   const UpdateSession = (e) => {
     e.preventDefault()
-    let values = { topic, desc, location, social, distracted, deep_work}
+    let values = { startTime, endTime, topic, desc, location, social, distracted, deep_work}
     axios.put(`${process.env.REACT_APP_URL}session/update/${props.session._id}`, values).then(function(response) {
       console.log(response);
     }).catch(function(err) {
@@ -27,17 +40,17 @@ export default function Session(props) {
     setRefreshToken(!refreshToken)
     props.UpdateData();
   }
-
-
-
+  
+  
   return (
     <>
       <div style={styles.sessionContainer} key={props.session._id} >
         <div onClick={() => setTogglePopup(!togglePopup)} style={styles.session}>
           <div style={styles.placeholder}></div>
-          <p style={styles.p}>{session_start.toDateString()  } { session_start.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+          <p style={styles.p}>{ session_start.toDateString()  } { session_start.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
           <p style={styles.p}><b>{props.session.topic}</b></p>
-          <p style={styles.p}>{session_end.toDateString()  } { session_end.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+          {end === null ? <p style={styles.p}>Current Session</p> : <p style={styles.p}>{ session_end.toDateString()  } { session_end.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>}
+          
         </div>
         <button onClick={() => props.Delete(props.session._id)} style={styles.delete}>X</button>
       </div>
@@ -45,6 +58,14 @@ export default function Session(props) {
       {togglePopup ? <div style={styles.modal}>
          <form style={styles.form}>
          <p style={styles.close} onClick={() => setTogglePopup(!togglePopup)}>EXIT</p>
+         <label style={styles.label}>Start Time <b>{ session_start.toLocaleString() }</b>
+            <input style={styles.input} type="datetime-local" {...bindStartTime} />
+          </label>
+
+          <label style={styles.label}>End Time  <b>{ session_end.toLocaleString() }</b> 
+          <input style={styles.input} type="datetime-local" {...bindEndTime} />
+          </label>
+
           <label style={styles.label}>Topic
             <input style={styles.input} type="text" {...bindTopic} />
           </label>

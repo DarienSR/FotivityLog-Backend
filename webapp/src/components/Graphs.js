@@ -41,8 +41,8 @@ export default function Graphs() {
     <>
       <h1>Dashboard</h1>
       <Treemap data={data} />
-      <Line sessions={sessions} data={ data } />
-      <div style={{ width: '30%', padding: '1rem'}}>
+      {/* <Line sessions={sessions} data={ data } /> */}
+      <div style={{ width: '80%', padding: '1rem'}}>
       <Heatmap sessions={ data.session_times }  />
       </div>
     </>

@@ -18,11 +18,12 @@ export default function Heatmap(props) {
           if (!value) {
             return 'color-empty';
           }
-          if(value.count < 30) return 'color-scale-1'
-          if(value.count < 60) return 'color-scale-2'
-          if(value.count < 90) return 'color-scale-3'
-          if(value.count < 120) return 'color-scale-4'
-          else return 'red'
+          if(value.count >= 120) return 'color-scale-4'
+          if(value.count >= 90) return 'color-scale-3'
+          if(value.count >= 60) return 'color-scale-2'
+          if(value.count >= 30) return 'color-scale-1'
+          if(value.count >= 0) return 'color-scale-0'
+       
         }}
         titleForValue={(value) => {
           if(value === null) return null;

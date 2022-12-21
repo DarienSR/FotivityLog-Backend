@@ -10,6 +10,8 @@ export default function Add() {
   let [session, setSession] = useState("");
   let [refreshToken, setRefreshToken] = useState(false);
 
+  let [hasUpdatedTime, setHasUpdatedTime] = useState(false);
+
   // Check to see if there is an active session
   useEffect(() => {
     let url = `${process.env.REACT_APP_URL}session/current`;
@@ -21,18 +23,36 @@ export default function Add() {
       alert("Error " + error.message + " | " + url)
     });
   }, [refreshToken]);
+  
+  function getCurrentTime() {
+    var currentdate = new Date(); 
+    return currentdate.getFullYear() + "-"  +
+     (currentdate.getMonth()+1)  + "-" 
+     + currentdate.getDate() + "T"
+                   + currentdate.getHours() + ":"  
+                   + (String(currentdate.getMinutes())).padStart(2, '0');
+              
+  }
 
-  const { value: startTime, bind: bindStartTime, reset: resetStartTime } = useInput("");
+ 
+  const { value: startTime, bind: bindStartTime, reset: resetStartTime } = useInput(getCurrentTime());
+  const { endTime, setEndTime} = useState();
 
   function AddSession() {
-    axios.post(`${process.env.REACT_APP_URL}session/start`).then(function(response) {
+    axios.post(`${process.env.REACT_APP_URL}session/start`, {start_time: document.getElementById('date').value}).then(function(response) {
       console.log(response);
       setRefreshToken(!refreshToken)
     }).catch(function(err) {
       console.log(err);
     }); 
   }
-  let StartSessionForm = <button onClick={ AddSession }>START</button>
+
+
+  let StartSessionForm = 
+  <div>
+    <input id="date" type="datetime-local" value={startTime} />
+    <button onClick={ AddSession }>START</button>
+  </div>
 
 
   // Finish
@@ -47,7 +67,7 @@ export default function Add() {
 
   const FinishSession = (e) => {
     e.preventDefault()
-    let values = { topic, desc, location, social, distracted, deep_work }
+    let values = { topic, desc, location, social, distracted, deep_work, endTime: document.getElementById('endTime').value }
     axios.put(`${process.env.REACT_APP_URL}session/finish`, values).then(function(response) {
       setRefreshToken(!refreshToken);
     }).catch(function(err) {
@@ -81,7 +101,18 @@ export default function Add() {
     <label>Deep Work
       <input type="checkbox" {...bindDeep_Work} />
     </label>
-    <button onClick={FinishSession}>Add Session</button>
+    <label>
+      <input id="endTime" type="datetime-local" value={endTime} />
+      <button onClick={function(e) {
+        e.preventDefault()
+        setHasUpdatedTime(true)
+        document.getElementById('endTime').value = getCurrentTime();
+      }}>Update Time</button>
+    </label>
+    {
+      hasUpdatedTime ? <button onClick={FinishSession}>Add Session</button> : "Please select a time"
+    }
+    
   </form>
 
   return (

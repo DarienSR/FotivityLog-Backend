@@ -36,7 +36,8 @@ router.post("/start", async (req, res) => {
   try {
     req.body._id = new ObjectId();
     req.body.user_id = ObjectId(req.body.user_id)
-    console.log(req.body)
+
+    console.log("SESSION START: ", req.body)
     const session = await Session.create(req.body); // create object in the database
     res.json(session);
   } catch (error) {
@@ -50,11 +51,11 @@ router.put('/finish', function(req, res) {
   try {
     const { db } = mongoose.connection;
     // push actual lift into your session
-    console.log("Values: ", req.body.social, req.body.distracted, req.body.deep_work, req.body.topic)
+    console.log("Values: ", req.body)
     let update = db.collection('sessions').updateOne(
       { end_time: null}, // select the session that does not have an end_time, should only be one
       { $set: { 
-        end_time: new Date(),
+        end_time: req.body.endTime,
         topic: req.body.topic,
         desc: req.body.desc,
         location: req.body.location,
@@ -80,6 +81,8 @@ router.put('/update/:id', function(req, res) {
     let update = db.collection('sessions').updateOne(
       { _id: ObjectId(req.params.id)}, // select the session that does not have an end_time, should only be one
       { $set: { 
+        start_time: req.body.startTime,
+        end_time: req.body.endTime,
         topic: req.body.topic,
         desc: req.body.desc,
         location: req.body.location,

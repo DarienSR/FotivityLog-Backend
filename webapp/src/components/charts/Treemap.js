@@ -29,7 +29,30 @@ export default function Treemap(props) {
         type: 'treemap'
       },
       title: {
-        text: 'Topic Breakdown'
+        text: 'Topic Breakdown',
+      },
+      dataLabels: {
+        style: {
+          colors: ['#5e5c56']
+        }
+      },
+      plotOptions: {
+        treemap: {
+          colorScale: {
+            ranges: [
+              {
+                from: 0,
+                to: 5,
+                color: '#d6e685'
+              },
+              {
+                from: 5,
+                to: 100,
+                color: '#44a340'
+              }
+            ]
+          }
+        }
       }
     },
   };
