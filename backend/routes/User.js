@@ -38,15 +38,19 @@ router.post("/login", async (req, res) => {
       if (result) {
         // sign token and send it in response
         const token = await jwt.sign({ username: user.username }, SECRET);
+        console.log("Login success", result, token)
         // pass the token in the header so the isLoggedIn function can get it
         res.send({token: token, username: user.username, id: user._id})
       } else {
+        console.log("error", result)
         res.status(400).json({ error: "password doesn't match" });
       }
     } else {
+      console.log("error", user)
       res.status(400).json({ error: "User doesn't exist" });
     }
   } catch (error) {
+    console.log("error", error)
     res.status(400).json({ error });
   }
 });
