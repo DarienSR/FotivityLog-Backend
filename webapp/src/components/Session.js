@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useInput } from "../hooks/useInput";
 import { useCheckbox } from '../hooks/useCheckbox';
 import axios from 'axios';
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Session(props) {
-  console.log("ewfef", props.session)
+  const { state, pathname } = useLocation();
+  let navigate = useNavigate();
   let session_start = new Date(props.session.start_time);
   let session_end = new Date(props.session.end_time);
   let [togglePopup, setTogglePopup] = useState(false);
@@ -31,7 +33,7 @@ export default function Session(props) {
 
   const UpdateSession = (e) => {
     e.preventDefault()
-    let values = { startTime, endTime, topic, desc, location, social, distracted, deep_work}
+    let values = { startTime, endTime, topic, desc, location, social, distracted, deep_work, user_id: state.id}
     axios.put(`${process.env.REACT_APP_URL}session/update/${props.session._id}`, values).then(function(response) {
       console.log(response);
     }).catch(function(err) {

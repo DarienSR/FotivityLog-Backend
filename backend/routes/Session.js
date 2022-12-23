@@ -9,10 +9,10 @@ const Session = require("../models/Session");
 
 
 // get all sessions
-router.get("/all", async (req, res) => {
+router.get("/all/:user_id", async (req, res) => {
   const { db } = mongoose.connection;
    db.collection("sessions")
-  .find()
+  .find({user_id: ObjectId(req.params.user_id)})
   .toArray(function (err, result) {
       if (err) throw err;
 
@@ -22,10 +22,10 @@ router.get("/all", async (req, res) => {
 
 // Get current session and display. Search sessions and pull out the session that has end_time = null.
 // This should only return one session. 
-router.get("/current", async (req, res) => {
+router.get("/current/:user_id", async (req, res) => {
   const { db } = mongoose.connection;
    db.collection("sessions")
-  .find({ end_time: null })
+  .find({$and: [{end_time: null}, {user_id: ObjectId(req.params.user_id)}]})
   .toArray(function (err, result) {
       if (err) throw err;
       res.json(result);
@@ -34,8 +34,7 @@ router.get("/current", async (req, res) => {
 
 router.post("/start", async (req, res) => {
   try {
-    req.body._id = new ObjectId();
-    req.body.user_id = ObjectId(req.body.user_id)
+    req.body._id = new ObjectId(); // session id
 
     console.log("SESSION START: ", req.body)
     const session = await Session.create(req.body); // create object in the database
@@ -53,7 +52,7 @@ router.put('/finish', function(req, res) {
     // push actual lift into your session
     console.log("Values: ", req.body)
     let update = db.collection('sessions').updateOne(
-      { end_time: null}, // select the session that does not have an end_time, should only be one
+      {$and: [{end_time: null}, {user_id: ObjectId(req.body.user_id)}]}, // select the session that does not have an end_time, should only be one
       { $set: { 
         end_time: req.body.endTime,
         topic: req.body.topic,
@@ -62,9 +61,9 @@ router.put('/finish', function(req, res) {
         distracted: req.body.distracted,
         social: req.body.social,
         deep_work: req.body.deep_work,
-      
       } }
     )
+    console.log(update)
     res.json(update)
   } catch(error) {
     console.log("Error: ------\n", error)
@@ -76,10 +75,10 @@ router.put('/finish', function(req, res) {
 router.put('/update/:id', function(req, res) {
   try {
     const { db } = mongoose.connection;
-    console.log(req.params.id)
+    console.log(req.params.id, req.body)
     // push actual lift into your session
     let update = db.collection('sessions').updateOne(
-      { _id: ObjectId(req.params.id)}, // select the session that does not have an end_time, should only be one
+      {$and: [{_id: ObjectId(req.params.id)}, {user_id: ObjectId(req.body.user_id)}]},
       { $set: { 
         start_time: req.body.startTime,
         end_time: req.body.endTime,

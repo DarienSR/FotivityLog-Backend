@@ -1,6 +1,6 @@
 import { useInput } from "../hooks/useInput";
 import { useCheckbox } from "../hooks/useCheckbox";
-
+import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import Session from "./Session";
@@ -8,7 +8,8 @@ import Session from "./Session";
 export default function Edit() {
   let [sessions, setSessions] = useState(null);
   let [refreshToken, setRefreshToken]= useState(false);
-
+  const { state, pathname } = useLocation();
+  let navigate = useNavigate();
 
   function UpdateData() {
     setRefreshToken(!refreshToken);
@@ -16,7 +17,8 @@ export default function Edit() {
 
   // Check to see if there is an active session
   useEffect(() => {
-    let url = `${process.env.REACT_APP_URL}session/all`;
+    let url = `${process.env.REACT_APP_URL}session/all/${state.id}`;
+    console.log(url)
     axios.get(url).then(function(response) {
       console.log(response.data)
       setSessions(response.data); // [0] is current Session

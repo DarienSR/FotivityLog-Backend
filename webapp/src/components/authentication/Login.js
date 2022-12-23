@@ -1,23 +1,36 @@
 import React, { useState } from 'react';
 import axios from 'axios'
 import { useInput } from "../../hooks/useInput";
-
+import { useNavigate } from "react-router-dom";
 export default function Login() {
+
+  let navigate = useNavigate();
+
   const { value: username, bind: bindUsername, reset: resetUsername } = useInput("");
   const { value: password, bind: bindPassword, reset: resetPassword } = useInput("");
 
-  function AttemptLogin(e) {
+
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(`${process.env.REACT_APP_URL}user/login`, {username, password}).then(function(response) {
-      console.log("Login: ", response)
-    }).catch(function(err) {
-      console.log(err);
-    }); 
+    
+    axios.post(`${process.env.REACT_APP_URL}user/login`, {username, password})
+    .then(function(response) {
+      // set token in local storage
+      window.localStorage.setItem("StudySession", response.data);
+      navigate("/dashboard", { state: response.data });
+    }).catch(function(error) {
+      console.log("error", error)
+    })
+
+    resetUsername();
+    resetPassword();
   }
+
 
   return (
   <div>
-    <form style={styles.form}>
+    <form onSubmit={ handleSubmit } style={styles.form}>
     <h1>Login</h1>
       <label>Username
         <input type="text" {...bindUsername} />
@@ -27,7 +40,7 @@ export default function Login() {
         <input type="password" {...bindPassword} />
       </label>
       
-      <button onClick={() => AttemptLogin()}>Login</button>
+      <input type="submit" value="Login" />
     </form>
   </div>
  )

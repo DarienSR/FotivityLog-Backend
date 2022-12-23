@@ -1,12 +1,15 @@
 import { useInput } from "../hooks/useInput";
 import { useCheckbox } from "../hooks/useCheckbox";
-
+import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 
 
 
 export default function Add() {
+  const { state, pathname } = useLocation();
+  let navigate = useNavigate();
+
   let [session, setSession] = useState("");
   let [refreshToken, setRefreshToken] = useState(false);
 
@@ -14,13 +17,13 @@ export default function Add() {
 
   // Check to see if there is an active session
   useEffect(() => {
-    let url = `${process.env.REACT_APP_URL}session/current`;
-    axios.get(url).then(function(response) {
-      console.log(response)
+    console.log(`${process.env.REACT_APP_URL}session/current/${state.id}`)
+    axios.get(`${process.env.REACT_APP_URL}session/current/${state.id}`).then(function(response) {
+      console.log("CURRENT PAGE", state.id, response)
       setSession(response.data); // [0] is current Session
     }).catch(function(error) {
       console.log(error)
-      alert("Error " + error.message + " | " + url)
+      alert("Error " + error.message)
     });
   }, [refreshToken]);
   
@@ -39,7 +42,8 @@ export default function Add() {
   const { endTime, setEndTime} = useState();
 
   function AddSession() {
-    axios.post(`${process.env.REACT_APP_URL}session/start`, {start_time: document.getElementById('date').value}).then(function(response) {
+    alert(state.id)
+    axios.post(`${process.env.REACT_APP_URL}session/start`, { start_time: document.getElementById('date').value, user_id: state.id  }).then(function(response) {
       console.log(response);
       setRefreshToken(!refreshToken)
     }).catch(function(err) {
@@ -67,8 +71,9 @@ export default function Add() {
 
   const FinishSession = (e) => {
     e.preventDefault()
-    let values = { topic, desc, location, social, distracted, deep_work, endTime: document.getElementById('endTime').value }
+    let values = { user_id: state.id, topic, desc, location, social, distracted, deep_work, endTime: document.getElementById('endTime').value }
     axios.put(`${process.env.REACT_APP_URL}session/finish`, values).then(function(response) {
+      console.log('res: ', response)
       setRefreshToken(!refreshToken);
     }).catch(function(err) {
       console.log(err);

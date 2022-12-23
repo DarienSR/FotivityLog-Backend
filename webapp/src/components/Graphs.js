@@ -4,7 +4,12 @@ import Line from './charts/Line';
 import Heatmap from "./charts/Heatmap";
 import Treemap from './charts/Treemap';
 import 'react-calendar-heatmap/dist/styles.css';
+import { useNavigate, useLocation } from "react-router-dom";
+
 export default function Graphs() {
+  const { state, pathname } = useLocation();
+  let navigate = useNavigate();
+  console.log(state)
   let [sessions, setSessions] = useState(null);
   let [refreshToken, setRefreshToken]= useState(false);
   let [data, setData] = useState([]);
@@ -15,7 +20,7 @@ export default function Graphs() {
   
   // Check to see if there is an active session
   useEffect(() => {
-    let url = `${process.env.REACT_APP_URL}session/all`;
+    let url = `${process.env.REACT_APP_URL}session/all/${state.id}`;
     axios.get(url).then(function(response) {
       let topics = [], session_times = [];
       response.data.forEach((obj) => {
