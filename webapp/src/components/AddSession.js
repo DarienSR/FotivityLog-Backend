@@ -6,7 +6,7 @@ import axios from 'axios'
 
 
 
-export default function Add() {
+export default function AddSession() {
   const { state, pathname } = useLocation();
   let navigate = useNavigate();
 
@@ -18,12 +18,9 @@ export default function Add() {
   // Check to see if there is an active session
   useEffect(() => {
     if(state !== null) {
-      console.log(`${process.env.REACT_APP_URL}session/current/${state.id}`)
       axios.get(`${process.env.REACT_APP_URL}session/current/${state.id}`).then(function(response) {
-        console.log("CURRENT PAGE", state.id, response)
         setSession(response.data); // [0] is current Session
       }).catch(function(error) {
-        console.log(error)
         alert("Error " + error.message)
       });
     } else {
@@ -36,17 +33,14 @@ export default function Add() {
     return currentdate.getFullYear() + "-"  +
      (currentdate.getMonth()+1)  + "-" 
      + currentdate.getDate() + "T"
-                   + currentdate.getHours() + ":"  
+                   + (String(currentdate.getHours())).padStart(2, '0') + ":"  
                    + (String(currentdate.getMinutes())).padStart(2, '0');
               
   }
-
- 
-  const { value: startTime, bind: bindStartTime, reset: resetStartTime } = useInput(getCurrentTime());
+  const { value: startTime, bind: bindStartTime, reset: resetStartTime } = useInput(getCurrentTime());  
   const { endTime, setEndTime} = useState();
 
-  function AddSession() {
-    alert(state.id)
+  function StartNewSession() {
     axios.post(`${process.env.REACT_APP_URL}session/start`, { start_time: document.getElementById('date').value, user_id: state.id  }).then(function(response) {
       console.log(response);
       setRefreshToken(!refreshToken)
@@ -58,8 +52,8 @@ export default function Add() {
 
   let StartSessionForm = 
   <div>
-    <input id="date" type="datetime-local" value={startTime} />
-    <button onClick={ AddSession }>START</button>
+    <input id="date" type="datetime-local" value={ startTime } />
+    <button onClick={ StartNewSession }>START</button>
   </div>
 
 

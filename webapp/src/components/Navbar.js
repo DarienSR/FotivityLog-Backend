@@ -23,7 +23,7 @@ export default function Navbar(props) {
     <div style={styles.nav}>
       <div style={styles.components}>
         <img title="View Graphs" onClick={() => props.toggleRender("Graph")} alt="Navigate to Graph Page" style={styles.image} src="./graph.png" />
-        <img title="Add Sessions" onClick={() => props.toggleRender("Add")} alt="Navigate to Add Session Page" style={styles.image} src="./add.png" />
+        <img title="Add Sessions" onClick={() => props.toggleRender("AddSession")} alt="Navigate to Add Session Page" style={styles.image} src="./add.png" />
         <img title="Edit Sessions" onClick={() => props.toggleRender("Edit")} alt="Navigate to Edit Session Page" style={styles.image} src="./edit.png" />
       </div>
       <div style={styles.auth}>

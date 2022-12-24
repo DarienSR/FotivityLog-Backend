@@ -6,7 +6,7 @@ import Treemap from './charts/Treemap';
 import 'react-calendar-heatmap/dist/styles.css';
 import { useNavigate, useLocation } from "react-router-dom";
 
-export default function Graphs() {
+export default function Dashboard() {
   const { state, pathname } = useLocation();
   let navigate = useNavigate();
   console.log(state)
