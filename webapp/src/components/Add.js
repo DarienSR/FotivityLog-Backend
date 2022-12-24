@@ -17,14 +17,18 @@ export default function Add() {
 
   // Check to see if there is an active session
   useEffect(() => {
-    console.log(`${process.env.REACT_APP_URL}session/current/${state.id}`)
-    axios.get(`${process.env.REACT_APP_URL}session/current/${state.id}`).then(function(response) {
-      console.log("CURRENT PAGE", state.id, response)
-      setSession(response.data); // [0] is current Session
-    }).catch(function(error) {
-      console.log(error)
-      alert("Error " + error.message)
-    });
+    if(state !== null) {
+      console.log(`${process.env.REACT_APP_URL}session/current/${state.id}`)
+      axios.get(`${process.env.REACT_APP_URL}session/current/${state.id}`).then(function(response) {
+        console.log("CURRENT PAGE", state.id, response)
+        setSession(response.data); // [0] is current Session
+      }).catch(function(error) {
+        console.log(error)
+        alert("Error " + error.message)
+      });
+    } else {
+      navigate("/login", { state })
+    }
   }, [refreshToken]);
   
   function getCurrentTime() {

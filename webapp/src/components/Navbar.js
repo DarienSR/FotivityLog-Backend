@@ -5,7 +5,19 @@ export default function Navbar(props) {
   const { state, pathname } = useLocation();
   let navigate = useNavigate();
 
-  console.log(props)
+  let isLoggedOn;
+  
+  if(state === null) isLoggedOn = <>
+    <p onClick={() => props.toggleRender("Login")} style={ styles.text }>Login</p> 
+    <p onClick={() => props.toggleRender("Sign Up")} style={styles.text}>Sign Up</p>
+  </>
+  else {
+    isLoggedOn = <>
+      <p style={ styles.text }>{ state.username }</p> 
+      <p style={ styles.text }>Logout</p>
+    </> 
+  }
+
   return (
     <>
     <div style={styles.nav}>
@@ -15,9 +27,7 @@ export default function Navbar(props) {
         <img title="Edit Sessions" onClick={() => props.toggleRender("Edit")} alt="Navigate to Edit Session Page" style={styles.image} src="./edit.png" />
       </div>
       <div style={styles.auth}>
-        <p onClick={() => props.toggleRender("Login")} style={styles.text}>Login - {state.username}</p>
-        <p onClick={() => props.toggleRender("Sign Up")} style={styles.text}>Sign Up</p>
-       
+        { isLoggedOn }       
       </div>
     </div>
     </>

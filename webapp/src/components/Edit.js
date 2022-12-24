@@ -17,15 +17,19 @@ export default function Edit() {
 
   // Check to see if there is an active session
   useEffect(() => {
-    let url = `${process.env.REACT_APP_URL}session/all/${state.id}`;
-    console.log(url)
-    axios.get(url).then(function(response) {
-      console.log(response.data)
-      setSessions(response.data); // [0] is current Session
-    }).catch(function(error) {
-      console.log(error)
-      alert("Error " + error.message + " | " + url)
-    });
+    if(state !== null) {
+      let url = `${process.env.REACT_APP_URL}session/all/${state.id}`;
+      console.log(url)
+      axios.get(url).then(function(response) {
+        console.log(response.data)
+        setSessions(response.data); // [0] is current Session
+      }).catch(function(error) {
+        console.log(error)
+        alert("Error " + error.message + " | " + url)
+      }); 
+    } else {
+      navigate("/login", { state })
+    }
   }, [refreshToken]);
 
   function DeleteSession(id) {

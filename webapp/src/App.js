@@ -23,11 +23,13 @@ function App() {
 
 
   function ToggleRender(component) {
-   if(component === "Graph")  navigate("/dashboard", { state })
-   if(component === "Add")  navigate("/add", { state })
-   if(component === "Edit")  navigate("/edit", { state })
-   if(component === "Login")  navigate("/login", { state })
-   if(component === "Sign Up")  navigate("/signup", { state })
+    console.log("checkl:", state);
+    if(state === null) navigate("/login", { state })
+    if(component === "Graph")  navigate("/dashboard", { state })
+    if(component === "Add")  navigate("/add", { state })
+    if(component === "Edit")  navigate("/edit", { state })
+    if(component === "Login")  navigate("/login", { state })
+    if(component === "Sign Up")  navigate("/signup", { state })
   }
   useEffect(() => {
     ToggleRender("Graph");
