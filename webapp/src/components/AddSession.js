@@ -56,10 +56,6 @@ export default function AddSession() {
     <button onClick={ StartNewSession }>START</button>
   </div>
 
-
-  // Finish
-
-
   const { value: topic, bind: bindTopic, reset: resetTopic } = useInput("");
   const { value: desc, bind: bindDesc, reset: resetDesc } = useInput("");
   const { value: location, bind: bindLocation, reset: resetLocation } = useInput("");

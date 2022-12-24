@@ -9,7 +9,7 @@ export default function Heatmap(props) {
   if(props.sessions === undefined) return null;
   return (
     <div>
-      <h1>6 Month History of Session Minutes</h1>
+      <h1>History of Session (minutes)</h1>
       <CalendarHeatmap
         startDate={shiftDate(today, -200)}
         endDate={today}
