@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 export default function Navbar(props) {
-
-  const { state, pathname } = useLocation();
-  let navigate = useNavigate();
-
+  const { state } = useLocation();
   let isLoggedOn;
   
-  if(state === null) isLoggedOn = <>
+  if(state === null) { 
+    isLoggedOn = <>
     <p onClick={() => props.toggleRender("Login")} style={ styles.text }>Login</p> 
     <p onClick={() => props.toggleRender("Sign Up")} style={styles.text}>Sign Up</p>
-  </>
-  else {
+    </>
+  } else {
     isLoggedOn = <>
       <p style={ styles.text }>{ state.username }</p> 
       <p style={ styles.text }>Logout</p>

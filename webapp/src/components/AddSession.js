@@ -4,10 +4,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 
-
-
 export default function AddSession() {
-  const { state, pathname } = useLocation();
+  const { state } = useLocation();
   let navigate = useNavigate();
 
   let [session, setSession] = useState("");
@@ -37,21 +35,17 @@ export default function AddSession() {
                    + (String(currentdate.getMinutes())).padStart(2, '0');
               
   }
-  const { value: startTime, bind: bindStartTime, reset: resetStartTime } = useInput(getCurrentTime());  
-  const { endTime, setEndTime} = useState();
+  const { value: startTime } = useInput(getCurrentTime());  
 
   function StartNewSession() {
     axios.post(`${process.env.REACT_APP_URL}session/start`, { start_time: document.getElementById('date').value, user_id: state.id  }).then(function(response) {
-      console.log(response);
       setRefreshToken(!refreshToken)
     }).catch(function(err) {
       console.log(err);
     }); 
   }
 
-
-  let StartSessionForm = 
-  <div>
+  let StartSessionForm = <div>
     <input id="date" type="datetime-local" value={ startTime } />
     <button onClick={ StartNewSession }>START</button>
   </div>
@@ -101,7 +95,7 @@ export default function AddSession() {
       <input type="checkbox" {...bindDeep_Work} />
     </label>
     <label>
-      <input id="endTime" type="datetime-local" value={endTime} />
+      <input id="endTime" type="datetime-local" />
       <button onClick={function(e) {
         e.preventDefault()
         setHasUpdatedTime(true)
@@ -111,7 +105,6 @@ export default function AddSession() {
     {
       hasUpdatedTime ? <button onClick={FinishSession}>Add Session</button> : "Please select a time"
     }
-    
   </form>
 
   return (
@@ -119,7 +112,6 @@ export default function AddSession() {
       { session.length <= 0 ? StartSessionForm : FinishSessionForm  }
     </div>
   )
-
 }
 let styles = {
   form: {

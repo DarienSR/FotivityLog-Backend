@@ -14,6 +14,7 @@ export default function Heatmap(props) {
         startDate={shiftDate(today, -200)}
         endDate={today}
         values={props.sessions}
+
         classForValue={value => {
           if (!value) {
             return 'color-empty';
@@ -23,18 +24,17 @@ export default function Heatmap(props) {
           if(value.count >= 60) return 'color-scale-2'
           if(value.count >= 30) return 'color-scale-1'
           if(value.count >= 0) return 'color-scale-0'
-       
         }}
-        titleForValue={(value) => {
-          if(value === null) return null;
-          return `${ value.date } - ${ value.count }`
-        }
+
+        titleForValue = {(value) => {
+            if(value === null) return null;
+            return `${ value.date } - ${ value.count }`
+          }
         }
 
         showWeekdayLabels={true}
         onClick={value => alert(`Clicked on value with count: ${value.count}`)}
       />
-
     </div>
   );
 }

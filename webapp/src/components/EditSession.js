@@ -8,7 +8,7 @@ import Session from "./Session";
 export default function EditSession() {
   let [sessions, setSessions] = useState(null);
   let [refreshToken, setRefreshToken]= useState(false);
-  const { state, pathname } = useLocation();
+  const { state } = useLocation();
   let navigate = useNavigate();
 
   function UpdateData() {
@@ -19,12 +19,9 @@ export default function EditSession() {
   useEffect(() => {
     if(state !== null) {
       let url = `${process.env.REACT_APP_URL}session/all/${state.id}`;
-      console.log(url)
       axios.get(url).then(function(response) {
-        console.log(response.data)
-        setSessions(response.data); // [0] is current Session
+      setSessions(response.data); // [0] is current Session
       }).catch(function(error) {
-        console.log(error)
         alert("Error " + error.message + " | " + url)
       }); 
     } else {
@@ -39,7 +36,6 @@ export default function EditSession() {
       setRefreshToken(!refreshToken)
       UpdateData(); // refresh the data feed
     }).catch(function(error) {
-      console.log(error)
       alert("Error " + error.message + " | " + url)
     });
   }
@@ -52,7 +48,7 @@ export default function EditSession() {
         <p stlye={styles.headers}>End Time</p>
       </div>
       { sessions !== null ? sessions.map((session, key) => {
-        return <Session key={key} UpdateData={UpdateData} Delete={DeleteSession} session={session} />
+        return <Session key={key} UpdateData={ UpdateData } Delete={ DeleteSession } session={ session } />
       }).reverse() : <p>No Sessions Found.</p>}
     </div>
   )
@@ -68,6 +64,5 @@ let styles = {
     fontWeight: 'bold',
     textDecoration: 'underline',
     fontSize: '1.5rem',
-    
   }
 }

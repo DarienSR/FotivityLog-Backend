@@ -56,7 +56,7 @@ export default function Treemap(props) {
       }
     },
   };
-  return <Chart options={data.options} series={data.series} type="treemap" height={350} />
+  return <Chart options={ data.options } series={ data.series } type="treemap" height={ 550 } />
 }
 
 

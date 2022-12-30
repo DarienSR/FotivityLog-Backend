@@ -91,7 +91,6 @@ router.put('/update/:id', function(req, res) {
       } }
     )
     console.log(update)
-
     res.json(update)
   } catch(error) {
     console.log("Error: ------\n", error)

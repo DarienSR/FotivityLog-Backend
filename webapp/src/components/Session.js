@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useInput } from "../hooks/useInput";
-import { useCheckbox } from '../hooks/useCheckbox';
 import axios from 'axios';
 import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Session(props) {
-  const { state, pathname } = useLocation();
-  let navigate = useNavigate();
+  const { state } = useLocation();
   let session_start = new Date(props.session.start_time);
   let session_end = new Date(props.session.end_time);
   let [togglePopup, setTogglePopup] = useState(false);
@@ -14,35 +12,26 @@ export default function Session(props) {
 
   const { value: topic, bind: bindTopic, reset: resetTopic } = useInput(props.session.topic);
   const { value: desc, bind: bindDesc, reset: resetDesc } = useInput(props.session.desc);
-
   const { value: startTime, bind: bindStartTime, reset: resetStartTime } = useInput(props.session.start_time.toLocaleString());
 
   let end = null;
   if(props.session.end_time != null) end = props.session.end_time.toLocaleString();
-  
+
   const { value: endTime, bind: bindEndTime, reset: resetEndTime } = useInput(end);
-
   const { value: location, bind: bindLocation, reset: resetLocation } = useInput(props.session.location);
-
-
-
   const [ social, setSocial] = useState(props.session.social);
   const [ distracted, setDistracted] = useState(props.session.distracted);
   const [ deep_work, setDeepWork] = useState(props.session.deep_work);
 
-
   const UpdateSession = (e) => {
     e.preventDefault()
     let values = { startTime, endTime, topic, desc, location, social, distracted, deep_work, user_id: state.id}
-    axios.put(`${process.env.REACT_APP_URL}session/update/${props.session._id}`, values).then(function(response) {
-      console.log(response);
-    }).catch(function(err) {
-      console.log(err);
+      axios.put(`${process.env.REACT_APP_URL}session/update/${props.session._id}`, values).then(function(response) {
+      }).catch(function(err) {
     }); 
     setRefreshToken(!refreshToken)
     props.UpdateData();
   }
-  
   
   return (
     <>
@@ -52,12 +41,11 @@ export default function Session(props) {
           <p style={styles.p}>{ session_start.toDateString()  } { session_start.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
           <p style={styles.p}><b>{props.session.topic}</b></p>
           {end === null ? <p style={styles.p}>Current Session</p> : <p style={styles.p}>{ session_end.toDateString()  } { session_end.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>}
-          
         </div>
         <button onClick={() => props.Delete(props.session._id)} style={styles.delete}>X</button>
       </div>
 
-      {togglePopup ? <div style={styles.modal}>
+      { togglePopup ? <div style={styles.modal}>
          <form style={styles.form}>
          <p style={styles.close} onClick={() => setTogglePopup(!togglePopup)}>EXIT</p>
          <label style={styles.label}>Start Time <b>{ session_start.toLocaleString() }</b>
