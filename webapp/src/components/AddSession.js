@@ -29,8 +29,8 @@ export default function AddSession() {
   function getCurrentTime() {
     var currentdate = new Date(); 
     return currentdate.getFullYear() + "-"  +
-     (currentdate.getMonth()+1)  + "-" 
-     + currentdate.getDate() + "T"
+     (String(currentdate.getMonth())+1).padStart(2, '0')  + "-" 
+     + (String(currentdate.getDate()).padStart(2, '0')) + "T"
                    + (String(currentdate.getHours())).padStart(2, '0') + ":"  
                    + (String(currentdate.getMinutes())).padStart(2, '0');
               
