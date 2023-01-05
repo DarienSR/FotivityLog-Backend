@@ -16,37 +16,79 @@ export default function SignUp() {
   }
 
   return (
-  <div>
+  <div style={ styles.formContainer }>
     <form style={styles.form}>
-    <h1>Sign up</h1>
-      <label>Username
-        <input type="text" {...bindUsername} />
+    <h1 style={ styles.label }>Sign up</h1>
+      <label style={ styles.text }>Username
+        <input style={ styles.input} type="text" {...bindUsername} />
       </label>
 
-      <label>Password
-        <input type="password" {...bindPassword} />
+      <label style={ styles.text }>Password
+        <input style={ styles.input} type="password" {...bindPassword} />
       </label>
 
-      <label>Email
-        <input type="text" {...bindEmail} />
+      <label style={ styles.text }>Email
+        <input style={ styles.input} type="text" {...bindEmail} />
       </label>
       
-      <button onClick={() => SignUp()}>Sign Up</button>
+      <button style={styles.button} onClick={() => SignUp()}>Sign Up</button>
     </form>
   </div>
  )
 }
 
 let styles = {
+  label: {
+    borderBottom: '0.35rem solid black',
+    paddingBottom: '0.5rem'
+  },
+  formContainer: {
+    width: '50%',
+    margin: '0 auto',
+  },
   form: {
     padding: 30,
+    justifyContent: 'center',
+    margin: '0 auto',
+    marginTop: '20%',
     fontSize: 30,
     display: 'flex',
-    margin: '0 auto',
-    marginTop: '15%',
     width: '50%',
     flexDirection: 'column',
-    backgroundColor: 'rgb(235 239 240)', 
-    boxShadow: '1px 2px #debbbb',
+    backgroundColor: 'white', 
+    borderTop: '0.5rem solid rgb(62 57 57)',
+    boxShadow: '1px 4px 4px 3px #debbbb',
   },
+  button: {
+    width: '80%',
+    alignSelf: 'center',
+    fontSize: '1.5rem',
+    padding: '0.75rem',
+    fontWeight: 'bold',
+    backgroundColor: 'white',
+    marginTop: '1rem',
+    border: '3px solid black',
+    cursor: 'pointer',
+  },
+  text: {
+    width: '80%',
+    alignSelf: 'center',
+    fontSize: '1.5rem',
+    padding: '0.75rem',
+    fontWeight: 'bold',
+    marginTop: '1rem',
+    textAlign: 'left',
+  }, 
+  input: {
+    width: '80%',
+    marginLeft: '2rem',
+    border: '2px solid black',
+    fontSize: '1.5rem',
+    padding: '0.4rem',
+  }, 
+  reset: {
+    fontSize: '1.4rem',
+    cursor: 'pointer',
+    width: '60%',
+  }
 }

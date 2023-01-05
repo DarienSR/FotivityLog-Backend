@@ -1,8 +1,8 @@
-# Study Session Tracker
+# FocivityLog
 
 Live Demo: https://study-session-tracker.onrender.com/signup
 
-Feel free to just signup using a random username / password. This document also outlines the entire application.
+Feel free to just signup using a random username / password. This document also outlines the entire application. Hosted applications has a long build time (free tier hosting).
 
 
 

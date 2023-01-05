@@ -76,34 +76,36 @@ export default function AddSession() {
     resetDeep_Work();
   }
   let FinishSessionForm = <form style={styles.form}>
-    <label>Topic
-      <input type="text" {...bindTopic} />
+    <h1 style={ styles.label }>Add Session</h1>
+
+    <label style={ styles.text }>Topic
+      <input style={styles.input} type="text" {...bindTopic} />
     </label>
-    <label>Description
-      <input type="text" {...bindDesc} />
+    <label style={ styles.text }>Description
+      <input style={styles.input} type="text" {...bindDesc} />
     </label>
-    <label>Location
-      <input type="text" {...bindLocation} />
+    <label style={ styles.text }>Location
+      <input style={styles.input} type="text" {...bindLocation} />
     </label>
-    <label>Social
-      <input type="checkbox" {...bindSocial} />
+    <label style={ styles.text }>Social
+      <input style={styles.inputCB} type="checkbox" {...bindSocial} />
     </label>
-    <label>Distracted
-      <input type="checkbox" {...bindDistracted} />
+    <label style={ styles.text }>Distracted
+      <input style={styles.inputCB} type="checkbox" {...bindDistracted} />
     </label>
-    <label>Deep Work
-      <input type="checkbox" {...bindDeep_Work} />
+    <label style={ styles.text }>Deep Work
+      <input style={styles.inputCB} type="checkbox" {...bindDeep_Work} />
     </label>
-    <label>
-      <input id="endTime" type="datetime-local" />
-      <button onClick={function(e) {
+    <label style={ styles.text }>
+      <input id="endTime" style={styles.input} type="datetime-local" />
+      <button style={styles.buttonUpdate} onClick={function(e) {
         e.preventDefault()
         setHasUpdatedTime(true)
         document.getElementById('endTime').value = getCurrentTime();
       }}>Update Time</button>
     </label>
     {
-      hasUpdatedTime ? <button onClick={FinishSession}>Add Session</button> : "Please select a time"
+      hasUpdatedTime ? <button style={styles.button} onClick={FinishSession}>Add Session</button> : "Please select a time"
     }
   </form>
 
@@ -113,16 +115,77 @@ export default function AddSession() {
     </div>
   )
 }
+
 let styles = {
+  label: {
+    borderBottom: '0.35rem solid black',
+    paddingBottom: '0.5rem'
+  },
+  formContainer: {
+    width: '50%',
+    margin: '0 auto',
+  },
   form: {
     padding: 30,
+    justifyContent: 'center',
+    margin: '0 auto',
+    marginTop: '1%',
     fontSize: 30,
     display: 'flex',
-    margin: '0 auto',
-    marginTop: '15%',
     width: '50%',
     flexDirection: 'column',
-    backgroundColor: 'rgb(235 239 240)', 
-    boxShadow: '1px 2px #debbbb',
+    backgroundColor: 'white', 
+    borderTop: '0.5rem solid rgb(62 57 57)',
+    boxShadow: '1px 4px 4px 3px #debbbb',
   },
+  button: {
+    width: '100%',
+    alignSelf: 'center',
+    fontSize: '1.5rem',
+    padding: '0.75rem',
+    fontWeight: 'bold',
+    backgroundColor: 'white',
+    marginTop: '1rem',
+    border: '3px solid black',
+    cursor: 'pointer',
+  },
+  buttonUpdate: {
+    width: '30%',
+    alignSelf: 'center',
+    fontSize: '1.5rem',
+    padding: '0.75rem',
+    pointer: 'cursor',
+    fontWeight: 'bold',
+    backgroundColor: 'white',
+    marginTop: '1rem',
+    border: '3px solid black',
+    cursor: 'pointer',
+  },
+  text: {
+    width: '80%',
+    alignSelf: 'center',
+    fontSize: '1.5rem',
+    padding: '0.75rem',
+    fontWeight: 'bold',
+    marginTop: '1rem',
+    textAlign: 'left',
+  }, 
+  input: {
+    width: '100%',
+    border: '2px solid black',
+    fontSize: '1.5rem',
+    padding: '0.4rem',
+  }, 
+  inputCB: {
+    marginLeft: '2rem',
+    border: '2px solid black',
+    fontSize: '3.5rem',
+    padding: '0.4rem',
+    transform: 'scale(2)'
+  }, 
+  reset: {
+    fontSize: '1.4rem',
+    cursor: 'pointer',
+    width: '60%',
+  }
 }

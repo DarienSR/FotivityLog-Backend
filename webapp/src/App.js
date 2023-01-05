@@ -11,7 +11,7 @@ import AddSession from './components/AddSession';
 import EditSession from './components/EditSession';
 import Signup from './components/authentication/Signup';
 import Login from "./components/authentication/Login";
-
+import ResetPassword from "./components/authentication/ResetPassword";
 
 
 
@@ -46,6 +46,7 @@ function App() {
           <Route exact path="/dashboard" element={<Dashboard />} />
           <Route exact path="/add" element={<AddSession />} />
           <Route exact path="/edit" element={<EditSession />} />
+          <Route exact path="/resetpassword" element={<ResetPassword />} />
         </Routes>
     </div>
   );

@@ -48,6 +48,7 @@ export default function Session(props) {
       { togglePopup ? <div style={styles.modal}>
          <form style={styles.form}>
          <p style={styles.close} onClick={() => setTogglePopup(!togglePopup)}>EXIT</p>
+         <h1 style={ styles.header }>Edit Session</h1>
          <label style={styles.label}>Start Time <b>{ session_start.toLocaleString() }</b>
             <input style={styles.input} type="datetime-local" {...bindStartTime} />
           </label>
@@ -66,15 +67,15 @@ export default function Session(props) {
             <input style={styles.input} type="text" {...bindLocation} />
           </label>
           <label style={styles.label}>Social
-            <input style={styles.input} type="checkbox" checked={social} onChange={() => setSocial(!social)} />
+            <input style={styles.inputCB} type="checkbox" checked={social} onChange={() => setSocial(!social)} />
           </label>
           <label style={styles.label}>Distracted
-          <input style={styles.input} type="checkbox" checked={distracted}  onChange={() => setDistracted(!distracted)} />
+          <input style={styles.inputCB} type="checkbox" checked={distracted}  onChange={() => setDistracted(!distracted)} />
           </label>
           <label style={styles.label}>Deep Work
-            <input style={styles.input} type="checkbox" checked={deep_work} onChange={() => setDeepWork(!deep_work)} />
+            <input style={styles.inputCB} type="checkbox" checked={deep_work} onChange={() => setDeepWork(!deep_work)} />
           </label>
-          <button onClick={UpdateSession}>Save</button>
+          <button style={ styles.button } onClick={UpdateSession}>Save</button>
         </form>
       </div> : null }
     </>
@@ -83,9 +84,12 @@ export default function Session(props) {
 
 let styles = {
   close: {
-    fontSize: '30',
     color: 'black',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    alignSelf: 'flex-end',
+    marginRight: '3rem',
+    cursor: 'pointer',
+    fontSize: '1.5rem',
   },
   sessionContainer: {
     display: 'flex',
@@ -126,10 +130,16 @@ let styles = {
   modal: {
     position: 'fixed',
     zIndex: 3, 
-    bottom: '0',
+    bottom: '15rem',
     height: '100%',
     width: '100%',
     backgroundColor: 'rgba(255, 255, 255, 0.4)'
+  },
+  header: {
+    borderBottom: '0.35rem solid black',
+    paddingBottom: '0.5rem',
+    width: '80%',
+    margin: '0 auto',
   },
   form: {
     display: 'flex',
@@ -141,12 +151,37 @@ let styles = {
     boxShadow: '1px 2px #debbbb',
   },
   label: {
-    margin: '1rem',
-    fontSize: '1.3rem'
+    width: '80%',
+    alignSelf: 'center',
+    fontSize: '1.5rem',
+    padding: '0.75rem',
+    fontWeight: 'bold',
+    marginTop: '1rem',
+    textAlign: 'left',
   },
   input: {
-    marginLeft: '0.5rem',
-    fontFamily: 'EB Garamond',
-    fontSize: '1.3rem',
-  }
+    width: '100%',
+    border: '2px solid black',
+    fontSize: '1.5rem',
+    padding: '0.4rem',
+  }, 
+  inputCB: {
+    marginLeft: '2rem',
+    border: '2px solid black',
+    fontSize: '3.5rem',
+    padding: '0.4rem',
+    transform: 'scale(2)'
+  }, 
+  button: {
+    width: '80%',
+    alignSelf: 'center',
+    fontSize: '1.5rem',
+    padding: '0.75rem',
+    cursor: 'pointer',
+    fontWeight: 'bold',
+    backgroundColor: 'white',
+    marginTop: '1rem',
+    marginBottom: '2rem',
+    border: '3px solid black',
+  },
 }

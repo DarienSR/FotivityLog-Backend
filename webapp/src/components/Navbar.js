@@ -1,6 +1,8 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+
 export default function Navbar(props) {
   const { state } = useLocation();
+  let navigate = useNavigate();
   let isLoggedOn;
   
   if(state === null) { 
@@ -11,7 +13,7 @@ export default function Navbar(props) {
   } else {
     isLoggedOn = <>
       <p style={ styles.text }>{ state.username }</p> 
-      <p style={ styles.text }>Logout</p>
+      <p onClick={ () => navigate("/login", { state: null }) } style={ styles.text }>Logout</p>
     </> 
   }
 
