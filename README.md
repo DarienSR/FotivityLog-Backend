@@ -41,4 +41,4 @@ Bings up the following form, fill it out (once session is finished):
 ### TO DO:
 
 - Add more graphs on the dashboard that give further analysis into study session
-- Re-style some of the UI (mainly the forms and dashboard UI)
+- Add Alerts
