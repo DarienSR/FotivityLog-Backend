@@ -18,6 +18,7 @@ export default function Navbar(props) {
   return (
     <>
     <div style={styles.nav}>
+      <h1 style={ styles.name }>FocivityLog</h1>
       <div style={styles.components}>
         <img title="View Graphs" onClick={() => props.toggleRender("Graph")} alt="Navigate to Graph Page" style={styles.image} src="./graph.png" />
         <img title="Add Sessions" onClick={() => props.toggleRender("AddSession")} alt="Navigate to Add Session Page" style={styles.image} src="./add.png" />
@@ -32,6 +33,9 @@ export default function Navbar(props) {
 }
 
 const styles = {
+  name: {
+    width: '20%',
+  },
   nav: {
     height: "5rem",
     marginBottom: "2rem",
@@ -49,7 +53,7 @@ const styles = {
   },
   text: {
     height: '50px',
-    width: '70px',
+    width: '50%',
     margin: '0rem 2rem',
     paddingTop: 15,
     cursor: "pointer",
@@ -57,12 +61,13 @@ const styles = {
   },
   components: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     width: '60%',
   },
   auth: {
     display: 'flex',
     justifyContent: 'flex-end',
-    width: '40%',
+    width: '20%',
+    fontSize: '1.5rem',
   }
 }
