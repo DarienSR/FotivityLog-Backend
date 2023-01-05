@@ -7,8 +7,8 @@ export default function Navbar(props) {
   
   if(state === null) { 
     isLoggedOn = <>
-    <p onClick={() => props.toggleRender("Login")} style={ styles.text }>Login</p> 
-    <p onClick={() => props.toggleRender("Sign Up")} style={styles.text}>Sign Up</p>
+    <p onClick={() =>  navigate("/login", { state })} style={ styles.text }>Login</p> 
+    <p onClick={() => navigate("/signup", { state })} style={styles.text}>Sign Up</p>
     </>
   } else {
     isLoggedOn = <>
@@ -22,9 +22,9 @@ export default function Navbar(props) {
     <div style={styles.nav}>
       <h1 style={ styles.name }>FocivityLog</h1>
       <div style={styles.components}>
-        <img title="View Graphs" onClick={() => props.toggleRender("Graph")} alt="Navigate to Graph Page" style={styles.image} src="./graph.png" />
-        <img title="Add Sessions" onClick={() => props.toggleRender("AddSession")} alt="Navigate to Add Session Page" style={styles.image} src="./add.png" />
-        <img title="Edit Sessions" onClick={() => props.toggleRender("Edit")} alt="Navigate to Edit Session Page" style={styles.image} src="./edit.png" />
+        <img title="View Graphs" onClick={() => navigate("/dashboard", { state })} alt="Navigate to Graph Page" style={styles.image} src="./graph.png" />
+        <img title="Add Sessions" onClick={() => navigate("/add", { state })} alt="Navigate to Add Session Page" style={styles.image} src="./add.png" />
+        <img title="Edit Sessions" onClick={() =>  navigate("/edit", { state })} alt="Navigate to Edit Session Page" style={styles.image} src="./edit.png" />
       </div>
       <div style={styles.auth}>
         { isLoggedOn }       

@@ -8,8 +8,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 export default function Dashboard() {
   const { state } = useLocation();
   let navigate = useNavigate();
-
-  let [refreshToken, setRefreshToken]= useState(false);
   let [data, setData] = useState([]);
 
   let getMinutes = function(start, end) { return Math.floor(((Math.abs(start  - end)) / 1000) / 60); } // hours
@@ -34,7 +32,7 @@ export default function Dashboard() {
     } else {
       navigate("/login", { state })
     }
-  }, [refreshToken]);
+  }, []);
 
   return(
     <>
