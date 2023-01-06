@@ -3,15 +3,18 @@ import { useCheckbox } from "../hooks/useCheckbox";
 import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
-
+import Alert from "./Alert";
 export default function AddSession() {
   const { state } = useLocation();
   let navigate = useNavigate();
 
   let [session, setSession] = useState("");
   let [refreshToken, setRefreshToken] = useState(false);
-
   let [hasUpdatedTime, setHasUpdatedTime] = useState(false);
+
+  let [alert, setAlert] = useState("");
+  let [alertIsVisible, setAlertIsVisible] = useState(false);
+  let [alertError, setAlertError] = useState(false);
 
   // Check to see if there is an active session
   useEffect(() => {
@@ -39,7 +42,7 @@ export default function AddSession() {
 
   function StartNewSession() {
     axios.post(`${process.env.REACT_APP_URL}session/start`, { start_time: document.getElementById('date').value, user_id: state.id  }).then(function(response) {
-      setRefreshToken(!refreshToken)
+      setRefreshToken(!refreshToken)      
     }).catch(function(err) {
       console.log(err);
     }); 
@@ -61,7 +64,14 @@ export default function AddSession() {
     e.preventDefault()
     let values = { user_id: state.id, topic, desc, location, social, distracted, deep_work, endTime: document.getElementById('endTime').value }
     axios.put(`${process.env.REACT_APP_URL}session/finish`, values).then(function(response) {
-      console.log('res: ', response)
+      setAlertIsVisible(true);
+      setAlertError(false);
+      setAlert("Session Added");
+
+      setTimeout(() => {
+        setAlertIsVisible(false)
+      }, 1500)
+      
       setRefreshToken(!refreshToken);
     }).catch(function(err) {
       console.log(err);
@@ -111,6 +121,7 @@ export default function AddSession() {
 
   return (
     <div>
+      <Alert alert={ alert } isVisible={ alertIsVisible } alertError={ alertError }/>
       { session.length <= 0 ? StartSessionForm : FinishSessionForm  }
     </div>
   )

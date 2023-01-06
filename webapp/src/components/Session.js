@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useInput } from "../hooks/useInput";
 import axios from 'axios';
 import { useNavigate, useLocation } from "react-router-dom";
-
+import Alert from "./Alert";
 export default function Session(props) {
   const { state } = useLocation();
   let session_start = new Date(props.session.start_time);
@@ -23,16 +23,29 @@ export default function Session(props) {
   const [ distracted, setDistracted] = useState(props.session.distracted);
   const [ deep_work, setDeepWork] = useState(props.session.deep_work);
 
+
+  let [alert, setAlert] = useState("");
+  let [alertIsVisible, setAlertIsVisible] = useState(false);
+  let [alertError, setAlertError] = useState(false);
+
   const UpdateSession = (e) => {
     e.preventDefault()
     let values = { startTime, endTime, topic, desc, location, social, distracted, deep_work, user_id: state.id}
       axios.put(`${process.env.REACT_APP_URL}session/update/${props.session._id}`, values).then(function(response) {
       }).catch(function(err) {
     }); 
+    setAlertIsVisible(true);
+    setAlertError(false);
+    setAlert("Session Updated");
+
+    setTimeout(() => {
+      setAlertIsVisible(false)
+    }, 1500)
     setRefreshToken(!refreshToken)
     props.UpdateData();
   }
   
+
   return (
     <>
       <div style={styles.sessionContainer} key={props.session._id} >
@@ -47,6 +60,7 @@ export default function Session(props) {
 
       { togglePopup ? <div style={styles.modal}>
          <form style={styles.form}>
+        <Alert alert={ alert } isVisible={ alertIsVisible } alertError={ alertError }/>
          <p style={styles.close} onClick={() => setTogglePopup(!togglePopup)}>EXIT</p>
          <h1 style={ styles.header }>Edit Session</h1>
          <label style={styles.label}>Start Time <b>{ session_start.toLocaleString() }</b>

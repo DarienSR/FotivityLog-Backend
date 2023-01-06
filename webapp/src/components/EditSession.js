@@ -4,12 +4,16 @@ import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import Session from "./Session";
-
+import Alert from "./Alert";
 export default function EditSession() {
   let [sessions, setSessions] = useState(null);
   let [refreshToken, setRefreshToken]= useState(false);
   const { state } = useLocation();
   let navigate = useNavigate();
+
+  let [alert, setAlert] = useState("");
+  let [alertIsVisible, setAlertIsVisible] = useState(false);
+  let [alertError, setAlertError] = useState(false);
 
   function UpdateData() {
     setRefreshToken(!refreshToken);
@@ -32,7 +36,14 @@ export default function EditSession() {
   function DeleteSession(id) {
     let url = `${process.env.REACT_APP_URL}session/delete/${id}`;
     axios.delete(url).then(function(response) {
-      alert("Deleted")
+      setAlertIsVisible(true);
+      setAlertError(false);
+      setAlert("Session Deleted");
+
+      setTimeout(() => {
+        setAlertIsVisible(false)
+      }, 1500)
+
       setRefreshToken(!refreshToken)
       UpdateData(); // refresh the data feed
     }).catch(function(error) {
@@ -42,6 +53,7 @@ export default function EditSession() {
 
   return (
     <div>
+      <Alert alert={ alert } isVisible={ alertIsVisible } alertError={ alertError }/>
       <div style={styles.edit}>
         <p stlye={styles.headers}>Start Time</p>
         <p stlye={styles.headers}>Topic/Desc</p>

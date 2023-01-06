@@ -4,11 +4,14 @@ import Heatmap from "./charts/Heatmap";
 import Treemap from './charts/Treemap';
 import 'react-calendar-heatmap/dist/styles.css';
 import { useNavigate, useLocation } from "react-router-dom";
-
+import Alert from "./Alert";
 export default function Dashboard() {
   const { state } = useLocation();
   let navigate = useNavigate();
   let [data, setData] = useState([]);
+  let [alert, setAlert] = useState("");
+  let [alertIsVisible, setAlertIsVisible] = useState(false);
+  let [alertError, setAlertError] = useState(false)
 
   let getMinutes = function(start, end) { return Math.floor(((Math.abs(start  - end)) / 1000) / 60); } // hours
   // Check to see if there is an active session
@@ -24,9 +27,10 @@ export default function Dashboard() {
             count: getMinutes(new Date(obj.start_time), new Date(obj.end_time))
           })
         })
+
         setData({ topics, session_times });
-      }).catch(function(error) {
         
+      }).catch(function(error) {
         alert("Error " + error.message + " | " + url)
       });
     } else {
@@ -36,6 +40,8 @@ export default function Dashboard() {
 
   return(
     <>
+      <Alert alert={ setAlert } isVisible={ alertIsVisible } alertError={ alertError }/>
+      
       <h1>Dashboard</h1>
       <Treemap data={ data } />
       <div style={{ width: '80%', padding: '1rem'}}>
