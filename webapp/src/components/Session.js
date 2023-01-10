@@ -10,6 +10,8 @@ export default function Session(props) {
   let [togglePopup, setTogglePopup] = useState(false);
   let [refreshToken, setRefreshToken] = useState(false);
 
+  let [deleteConfirmation, setDeleteConfirmation] = useState(false);
+
   const { value: topic, bind: bindTopic, reset: resetTopic } = useInput(props.session.topic);
   const { value: desc, bind: bindDesc, reset: resetDesc } = useInput(props.session.desc);
   const { value: startTime, bind: bindStartTime, reset: resetStartTime } = useInput(props.session.start_time.toLocaleString());
@@ -46,6 +48,16 @@ export default function Session(props) {
   }
   
 
+  function ConfirmDelete(value = !deleteConfirmation) {
+    setDeleteConfirmation(value);
+  }
+
+  let deleteDisplay = <div>
+    <p>Are you sure you want to delete</p>
+    <button onClick={() => props.Delete(props.session._id)}>Yes</button>
+    <button onClick={() => ConfirmDelete(false)}>No</button>
+  </div>
+
   return (
     <>
       <div style={styles.sessionContainer} key={props.session._id} >
@@ -55,7 +67,10 @@ export default function Session(props) {
           <p style={styles.p}><b>{props.session.topic}</b></p>
           {end === null ? <p style={styles.p}>Current Session</p> : <p style={styles.p}>{ session_end.toDateString()  } { session_end.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>}
         </div>
-        <button onClick={() => props.Delete(props.session._id)} style={styles.delete}>X</button>
+
+        {deleteConfirmation ? deleteDisplay : null}
+        
+        <button onClick={() => ConfirmDelete(props.session._id)} style={styles.delete}>X</button>
       </div>
 
       { togglePopup ? <div style={styles.modal}>
