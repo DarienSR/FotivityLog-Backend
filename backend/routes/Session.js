@@ -61,6 +61,7 @@ router.put('/finish', function(req, res) {
         distracted: req.body.distracted,
         social: req.body.social,
         deep_work: req.body.deep_work,
+        focused: req.body.focused
       } }
     )
     console.log(update)
@@ -87,7 +88,8 @@ router.put('/update/:id', function(req, res) {
         location: req.body.location,
         distracted: req.body.distracted,
         social: req.body.social,
-        deep_work: req.body.deep_work
+        deep_work: req.body.deep_work,
+        focused: req.body.focused
       } }
     )
     console.log(update)

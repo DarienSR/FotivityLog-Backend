@@ -23,6 +23,7 @@ export default function Session(props) {
   const { value: location, bind: bindLocation, reset: resetLocation } = useInput(props.session.location);
   const [ social, setSocial] = useState(props.session.social);
   const [ distracted, setDistracted] = useState(props.session.distracted);
+  const [ focused, setFocused] = useState(props.session.focused);
   const [ deep_work, setDeepWork] = useState(props.session.deep_work);
 
 
@@ -100,6 +101,9 @@ export default function Session(props) {
           </label>
           <label style={styles.label}>Distracted
           <input style={styles.inputCB} type="checkbox" checked={distracted}  onChange={() => setDistracted(!distracted)} />
+          </label>
+          <label style={styles.label}>Focused
+          <input style={styles.inputCB} type="checkbox" checked={focused}  onChange={() => setFocused(!focused)} />
           </label>
           <label style={styles.label}>Deep Work
             <input style={styles.inputCB} type="checkbox" checked={deep_work} onChange={() => setDeepWork(!deep_work)} />

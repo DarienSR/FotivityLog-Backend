@@ -59,10 +59,11 @@ export default function AddSession() {
   const { value: social, bind: bindSocial, reset: resetSocial } = useCheckbox(false);
   const { value: distracted, bind: bindDistracted, reset: resetDistracted } = useCheckbox(false);
   const { value: deep_work, bind: bindDeep_Work, reset: resetDeep_Work } = useCheckbox(false);
+  const { value: focused, bind: bindFocused, reset: resetFocused } = useCheckbox(false);
 
   const FinishSession = (e) => {
     e.preventDefault()
-    let values = { user_id: state.id, topic, desc, location, social, distracted, deep_work, endTime: document.getElementById('endTime').value }
+    let values = { user_id: state.id, topic, desc, location, social, distracted, focused, deep_work, endTime: document.getElementById('endTime').value }
     axios.put(`${process.env.REACT_APP_URL}session/finish`, values).then(function(response) {
       setAlertIsVisible(true);
       setAlertError(false);
@@ -83,6 +84,7 @@ export default function AddSession() {
     resetSocial();
     resetLocation();
     resetDistracted();
+    resetFocused();
     resetDeep_Work();
   }
   let FinishSessionForm = <form style={styles.form}>
@@ -102,6 +104,9 @@ export default function AddSession() {
     </label>
     <label style={ styles.text }>Distracted
       <input style={styles.inputCB} type="checkbox" {...bindDistracted} />
+    </label>
+    <label style={ styles.text }>Focused
+      <input style={styles.inputCB} type="checkbox" {...bindFocused} />
     </label>
     <label style={ styles.text }>Deep Work
       <input style={styles.inputCB} type="checkbox" {...bindDeep_Work} />
