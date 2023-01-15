@@ -21,7 +21,8 @@ export default function ModularForm(props) {
           props.inputs.map((input, idx) => {
             return <div key={ idx }>
               <label style={styles.text}>{ input.field }</label>
-              <input {...input.bindInput}  type={input.type} style={input.type === 'checkbox' ? styles.checkbox : styles.input} />
+
+              <input {...input.bindInput}  type={input.type} style={input.type === 'checkbox' ? styles.inputCB : styles.input} />
             </div>
           })
         }
@@ -44,18 +45,18 @@ let styles = {
     padding: 30,
     justifyContent: 'center',
     margin: '0 auto',
-    marginTop: '20%',
+    marginTop: '5%',
     fontSize: 30,
     display: 'flex',
-    width: '50%',
+    width: '30%',
     flexDirection: 'column',
     backgroundColor: 'white', 
     borderTop: '0.5rem solid rgb(62 57 57)',
     boxShadow: '1px 4px 4px 3px #debbbb',
   },
   button: {
-    width: '100%',
-    alignSelf: 'center',
+    width: '30%',
+    alignSelf: 'flex-end',
     fontSize: '1.5rem',
     padding: '0.75rem',
     fontWeight: 'bold',
@@ -65,20 +66,26 @@ let styles = {
     cursor: 'pointer',
   },
   text: {
-    width: '80%',
-    alignSelf: 'center',
     fontSize: '1.5rem',
     padding: '0.75rem',
     fontWeight: 'bold',
     marginTop: '1rem',
-    textAlign: 'left',
+    display: 'flex',
+    justifyContent: 'flex-start'
   }, 
   input: {
-    width: '80%',
-    marginLeft: '2rem',
+    width: '100%',
     border: '2px solid black',
     fontSize: '1.5rem',
     padding: '0.4rem',
+  }, 
+  inputCB: {
+    border: '2px solid black',
+    padding: '0.4rem',
+    transform: 'scale(2)',
+    margin: 'auto',
+    float: 'left',
+    marginLeft: '1.5rem'
   }, 
   reset: {
     fontSize: '1.4rem',

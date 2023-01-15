@@ -29,20 +29,12 @@ export default function Login() {
 
 
   return (
-  <div style={ styles.formContainer }>
-    <ModularForm 
-      inputs = {[
-        { field: 'Username', type:'text', bindInput: {...bindUsername} }, 
-        { field: 'Password', type:'password', bindInput: bindPassword }
-      ]} 
-      submitForm = {{ btnText: 'Login', onSubmit: handleSubmit }} title = {'Login'} />
-  </div>
+  <ModularForm 
+    inputs = {[
+      { field: 'Username', type:'text', bindInput: bindUsername }, 
+      { field: 'Password', type:'password', bindInput: bindPassword }
+    ]} 
+    submitForm = {{ btnText: 'Login', onSubmit: handleSubmit }} title = 'Login' />
  )
 }
 
-let styles = {
-  formContainer: {
-    width: '50%',
-    margin: '0 auto',
-  }
-}

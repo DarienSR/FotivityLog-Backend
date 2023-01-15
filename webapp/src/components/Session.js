@@ -176,7 +176,7 @@ let styles = {
     marginTop: '15%',
     width: '50%',
     flexDirection: 'column',
-    backgroundColor: 'rgb(235 239 240)', 
+    backgroundColor: 'white', 
     boxShadow: '1px 2px #debbbb',
   },
   label: {
