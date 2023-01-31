@@ -3,6 +3,7 @@ import { useInput } from "../hooks/useInput";
 import axios from 'axios';
 import { useNavigate, useLocation } from "react-router-dom";
 import Alert from "./Alert";
+
 export default function Session(props) {
   const { state } = useLocation();
   let session_start = new Date(props.session.start_time);

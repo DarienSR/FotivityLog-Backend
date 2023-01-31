@@ -8,7 +8,7 @@ const today = new Date();
 export default function Heatmap(props) {
   if(props.sessions === undefined) return null;
   return (
-    <div>
+    <>
       <h1>History of Session (minutes)</h1>
       <CalendarHeatmap
         startDate={shiftDate(today, -200)}
@@ -35,7 +35,7 @@ export default function Heatmap(props) {
         showWeekdayLabels={true}
         onClick={value => alert(`Clicked on value with count: ${value.count}`)}
       />
-    </div>
+    </>
   );
 }
 

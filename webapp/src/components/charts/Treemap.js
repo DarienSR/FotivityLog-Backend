@@ -2,7 +2,7 @@ import { React } from "react";
 import Chart from "react-apexcharts";
 
 export default function Treemap(props) {
-  if(props.data.topics === undefined) return null;
+  if(props.data === undefined) return null;
   function mapWordCounts(words) {
     const counts = new Map();
     for (const word of words) { counts.set(word, (counts.get(word) ?? 0) + 1) }
@@ -10,7 +10,7 @@ export default function Treemap(props) {
   }
 
   let values = []
-  mapWordCounts(props.data.topics).forEach((val, key) => {
+  mapWordCounts(props.data).forEach((val, key) => {
     values.push({x: key, y: val})
   })
 
@@ -29,7 +29,7 @@ export default function Treemap(props) {
         type: 'treemap'
       },
       title: {
-        text: 'Topic Breakdown',
+        text: props.title,
       },
       dataLabels: {
         style: {

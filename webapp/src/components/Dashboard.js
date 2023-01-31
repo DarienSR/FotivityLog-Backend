@@ -19,16 +19,18 @@ export default function Dashboard() {
     if(state !== null) {
       let url = `${process.env.REACT_APP_URL}session/all/${state.id}`;
       axios.get(url).then(function(response) {
-        let topics = [], session_times = [];
+        let topics = [], session_times = [], locations = [];
         response.data.forEach((obj) => {
           topics.push(obj.topic.toUpperCase())
           session_times.push({
             date: obj.start_time.split('T')[0],
             count: getMinutes(new Date(obj.start_time), new Date(obj.end_time))
           })
+          locations.push(obj.location)
+          console.log(obj)
         })
 
-        setData({ topics, session_times });
+        setData({ topics, session_times, locations });
         
       }).catch(function(error) {
         alert("Error " + error.message + " | " + url)
@@ -41,14 +43,49 @@ export default function Dashboard() {
   return(
     <>
       <Alert alert={ setAlert } isVisible={ alertIsVisible } alertError={ alertError }/>
-      
       <h1>Dashboard</h1>
-      <Treemap data={ data } />
-      <div style={{ width: '80%', padding: '1rem'}}>
-      <Heatmap sessions={ data.session_times }  />
+      <div style={ styles.dashboardContainer }>
+        <div style={{ ...styles.component, ...styles.large }}>
+          <Heatmap sessions={ data.session_times }  />
+        </div>
+        <div style={ styles.component }>
+          <Treemap data={ data.locations } title="Locations" />
+        </div>
+      </div>
+
+      <div style={ styles.dashboardContainer }>
+        <div style={{ ...styles.component, ...styles.large }}>
+          <Treemap data={ data.topics } title="Topics" />
+        </div>
       </div>
     </>
   )
 }
 
 
+let styles = {
+  dashboardContainer: {
+    backgroundColor: 'white',
+    padding: '1rem',
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  component: {
+    padding: '1rem',
+    backgroundColor: 'white',
+    margin: '0.25rem',
+    width: '40%',
+    borderRadius: '2%',
+    border: '2px solid #dfdede',
+    boxShadow: '2px 3px whitesmoke'
+  },
+  small: {
+    width: '40%',
+  },
+  medium: {
+    width: '70%',
+  },
+  large: {
+    width: '100%',
+  }
+}
