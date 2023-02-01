@@ -22,6 +22,7 @@ export default function Dashboard() {
         let topics = [], session_times = [], locations = [];
         response.data.forEach((obj) => {
           topics.push(obj.topic.toUpperCase())
+   
           session_times.push({
             date: obj.start_time.split('T')[0],
             count: getMinutes(new Date(obj.start_time), new Date(obj.end_time))

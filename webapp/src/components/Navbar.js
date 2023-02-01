@@ -17,15 +17,17 @@ export default function Navbar(props) {
     </> 
   }
 
+  let nav = <div style={styles.components}>
+  <img title="View Graphs" onClick={() => navigate("/dashboard", { state })} alt="Navigate to Graph Page" style={styles.image} src="./graph.png" />
+  <img title="Add Sessions" onClick={() => navigate("/add", { state })} alt="Navigate to Add Session Page" style={styles.image} src="./add.png" />
+  <img title="Edit Sessions" onClick={() =>  navigate("/edit", { state })} alt="Navigate to Edit Session Page" style={styles.image} src="./edit.png" />
+</div>
+
   return (
     <>
     <div style={styles.nav}>
       <h1 style={ styles.name }>FocivityLog</h1>
-      <div style={styles.components}>
-        <img title="View Graphs" onClick={() => navigate("/dashboard", { state })} alt="Navigate to Graph Page" style={styles.image} src="./graph.png" />
-        <img title="Add Sessions" onClick={() => navigate("/add", { state })} alt="Navigate to Add Session Page" style={styles.image} src="./add.png" />
-        <img title="Edit Sessions" onClick={() =>  navigate("/edit", { state })} alt="Navigate to Edit Session Page" style={styles.image} src="./edit.png" />
-      </div>
+      { state === null ? <div style={styles.components}></div> : nav }
       <div style={styles.auth}>
         { isLoggedOn }       
       </div>
@@ -37,6 +39,7 @@ export default function Navbar(props) {
 const styles = {
   name: {
     width: '20%',
+    float: 'left',
   },
   nav: {
     height: "5rem",
