@@ -6,6 +6,8 @@ import 'react-calendar-heatmap/dist/styles.css';
 import { useNavigate, useLocation } from "react-router-dom";
 import Alert from "../common/Alert";
 
+import "./SessionProcessing"; // imports all functions from file
+import { ProcessSessionData } from './SessionProcessing';
 
 export default function Dashboard() {
   const { state } = useLocation();
@@ -21,22 +23,10 @@ export default function Dashboard() {
     if(state !== null) {
       let url = `${process.env.REACT_APP_URL}session/all/${state.id}`;
       axios.get(url).then(function(response) {
-        let topics = [], session_times = [], locations = [];
-        response.data.forEach((obj) => {
-          topics.push(obj.topic.toUpperCase())
-   
-          session_times.push({
-            date: obj.start_time.split('T')[0],
-            count: getMinutes(new Date(obj.start_time), new Date(obj.end_time))
-          })
-          locations.push(obj.location)
-          console.log(obj)
-        })
-
-        setData({ topics, session_times, locations });
-        
+        let sessions = ProcessSessionData(response.data)
+        setData( sessions );
       }).catch(function(error) {
-        alert("Error " + error.message + " | " + url)
+       console.log("Error " + error.message + " | " + url)
       });
     } else {
       navigate("/login", { state })
@@ -49,15 +39,15 @@ export default function Dashboard() {
       <h1>Dashboard</h1>
       <div style={ styles.dashboardContainer }>
         <div style={{ ...styles.component, ...styles.large }}>
-          <Heatmap sessions={ data.session_times }  />
-        </div>
-        <div style={ styles.component }>
-          <Treemap data={ data.locations } title="Locations" />
+          <Heatmap sessions={ data.times }  />
         </div>
       </div>
 
       <div style={ styles.dashboardContainer }>
-        <div style={{ ...styles.component, ...styles.large }}>
+        <div style={ { ...styles.component, ...styles.medium } }>
+          <Treemap data={ data.locations } title="Locations" />
+        </div>
+        <div style={{ ...styles.component, ...styles.medium }}>
           <Treemap data={ data.topics } title="Topics" />
         </div>
       </div>
@@ -83,10 +73,10 @@ let styles = {
     boxShadow: '2px 3px whitesmoke'
   },
   small: {
-    width: '40%',
+    width: '25%',
   },
   medium: {
-    width: '70%',
+    width: '50%',
   },
   large: {
     width: '100%',

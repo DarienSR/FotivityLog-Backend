@@ -1,39 +1,38 @@
 import React from 'react';
 import CalendarHeatmap from 'react-calendar-heatmap'; // https://www.npmjs.com/package/react-calendar-heatmap
 import 'react-calendar-heatmap/dist/styles.css';
-
-
+import { GroupSameDayDifferences } from '../SessionProcessing';
 const today = new Date();
 
 export default function Heatmap(props) {
   if(props.sessions === undefined) return null;
+  
   return (
     <>
       <h1>History of Session (minutes)</h1>
       <CalendarHeatmap
         startDate={shiftDate(today, -200)}
         endDate={today}
-        values={props.sessions}
-
+        values={GroupSameDayDifferences(props.sessions)}
         classForValue={value => {
           if (!value) {
             return 'color-empty';
           }
-          if(value.count >= 120) return 'color-scale-4'
-          if(value.count >= 90) return 'color-scale-3'
-          if(value.count >= 60) return 'color-scale-2'
-          if(value.count >= 30) return 'color-scale-1'
-          if(value.count >= 0) return 'color-scale-0'
+          if(value.difference >= 120) return 'color-scale-4'
+          if(value.difference >= 90) return 'color-scale-3'
+          if(value.difference >= 60) return 'color-scale-2'
+          if(value.difference >= 30) return 'color-scale-1'
+          if(value.difference >= 0) return 'color-scale-0'
         }}
 
         titleForValue = {(value) => {
             if(value === null) return null;
-            return `${ value.date } - ${ value.count }`
+            return `${ value.date } - ${ value.difference }`
           }
         }
 
         showWeekdayLabels={true}
-        onClick={value => alert(`Clicked on value with count: ${value.count}`)}
+        onClick={value => alert(`Clicked on value with difference: ${value.difference}`)}
       />
     </>
   );
