@@ -97,18 +97,21 @@ export default function Session(props) {
           <label style={styles.label}>Location
             <input style={styles.input} type="text" {...bindLocation} />
           </label>
-          <label style={styles.label}>Social
-            <input style={styles.inputCB} type="checkbox" checked={social} onChange={() => setSocial(!social)} />
-          </label>
-          <label style={styles.label}>Distracted
-          <input style={styles.inputCB} type="checkbox" checked={distracted}  onChange={() => setDistracted(!distracted)} />
-          </label>
-          <label style={styles.label}>Focused
-          <input style={styles.inputCB} type="checkbox" checked={focused}  onChange={() => setFocused(!focused)} />
-          </label>
-          <label style={styles.label}>Deep Work
-            <input style={styles.inputCB} type="checkbox" checked={deep_work} onChange={() => setDeepWork(!deep_work)} />
-          </label>
+
+          <div>
+            <label style={styles.label}>Social
+              <input style={styles.inputCB} type="checkbox" checked={social} onChange={() => setSocial(!social)} />
+            </label>
+            <label style={styles.label}>Distracted
+            <input style={styles.inputCB} type="checkbox" checked={distracted}  onChange={() => setDistracted(!distracted)} />
+            </label>
+            <label style={styles.label}>Focused
+            <input style={styles.inputCB} type="checkbox" checked={focused}  onChange={() => setFocused(!focused)} />
+            </label>
+            <label style={styles.label}>Deep Work
+              <input style={styles.inputCB} type="checkbox" checked={deep_work} onChange={() => setDeepWork(!deep_work)} />
+            </label>
+          </div>
           <button style={ styles.button } onClick={UpdateSession}>Save</button>
         </form>
       </div> : null }
@@ -132,14 +135,14 @@ let styles = {
   },
   session: {
     width: '90%',
-    backgroundColor: 'rgb(235 239 240)',
+    backgroundColor: 'white',
     margin: '1rem auto',
     height: '3rem',
     borderRadius: '5px',
     display: 'flex',
     justifyContent: 'center',
     padding: '0.25rem',
-    boxShadow: '1px 2px #debbbb',
+    boxShadow: '1px 2px 3px 2px rgb(157 157 157)',
     fontSize: '1.3rem',
     marginRight: 0,
   },
@@ -147,12 +150,12 @@ let styles = {
     width: '5%',
   },
   delete: {
-    backgroundColor: 'rgb(235 239 240)',
+    backgroundColor: 'white',
     margin: '1rem auto',
     alignSelf: 'center',
     display: 'flex',
     justifyContent: 'center',
-    boxShadow: '1px 2px black',
+    boxShadow: '3px 2px 3px 2px rgb(157 157 157)',
     fontSize: '1.3rem',
     border: 'none',
     marginLeft: 0
@@ -178,11 +181,12 @@ let styles = {
   form: {
     display: 'flex',
     margin: '0 auto',
-    marginTop: '15%',
-    width: '50%',
+    marginTop: '18%',
+    width: '60%',
     flexDirection: 'column',
     backgroundColor: 'white', 
-    boxShadow: '1px 2px #debbbb',
+    boxShadow: '1px 2px 3px 4px #debbbb',
+    height: '87%'
   },
   label: {
     width: '80%',
@@ -190,7 +194,7 @@ let styles = {
     fontSize: '1.5rem',
     padding: '0.75rem',
     fontWeight: 'bold',
-    marginTop: '1rem',
+    marginTop: '0.3rem',
     textAlign: 'left',
   },
   input: {

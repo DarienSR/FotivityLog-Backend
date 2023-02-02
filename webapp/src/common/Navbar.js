@@ -18,9 +18,11 @@ export default function Navbar(props) {
   }
 
   let nav = <div style={styles.components}>
+    <img title="Edit Sessions" onClick={() =>  navigate("/organizer", { state })} alt="Navigate to Organizer Page" style={styles.image} src="./organizer.png" />
   <img title="View Graphs" onClick={() => navigate("/dashboard", { state })} alt="Navigate to Graph Page" style={styles.image} src="./graph.png" />
   <img title="Add Sessions" onClick={() => navigate("/add", { state })} alt="Navigate to Add Session Page" style={styles.image} src="./add.png" />
   <img title="Edit Sessions" onClick={() =>  navigate("/edit", { state })} alt="Navigate to Edit Session Page" style={styles.image} src="./edit.png" />
+
 </div>
 
   return (
@@ -32,6 +34,7 @@ export default function Navbar(props) {
         { isLoggedOn }       
       </div>
     </div>
+    <div style={{paddingBottom: '7rem'}}></div>
     </>
   )
 }
@@ -47,7 +50,10 @@ const styles = {
     borderBottom: '3px solid #eaeaea',
     boxShadow: '2px 1px #d3c9c9',
     display: 'flex',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    position: 'fixed',
+    width: '100%',
+    backgroundColor: 'white'
   },
   image: {
     height: '50px',

@@ -26,6 +26,8 @@ export default function Heatmap(props) {
           if(value.difference > 300) return 'color-scale-6'
         }}
 
+        viewBox={"0 0 348 101"}
+
         titleForValue = {(value) => {
             if(value === null) return null;
             return `${ value.date } - ${ value.difference }`

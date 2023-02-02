@@ -37,7 +37,7 @@ export default function Dashboard() {
       <Alert alert={ setAlert } isVisible={ alertIsVisible } alertError={ alertError }/>
       <h1>Dashboard</h1>
       <div style={ styles.dashboardContainer }>
-        <div style={{ ...styles.component, ...styles.large }}>
+        <div style={{ ...styles.component, ...styles.large}}>
           <Heatmap sessions={ data.times }  />
         </div>
       </div>
@@ -54,6 +54,11 @@ export default function Dashboard() {
   )
 }
 
+var list;
+list = document.getElementsByClassName("react-calendar-heatmap");
+for (let index = 0; index < list.length; ++index) {
+    list[index].setAttribute("viewBox", "0 0 348 100");
+}
 
 let styles = {
   dashboardContainer: {
@@ -78,6 +83,7 @@ let styles = {
     width: '50%',
   },
   large: {
-    width: '100%',
+    width: '80%',
+    margin: '0 auto'
   }
 }

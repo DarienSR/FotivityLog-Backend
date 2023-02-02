@@ -42,13 +42,33 @@ export default function Treemap(props) {
             ranges: [
               {
                 from: 0,
-                to: 5,
-                color: '#d6e685'
+                to: 15,
+                color: '#67ff49'
               },
               {
-                from: 5,
+                from: 15,
+                to: 30,
+                color: '#28c45c'
+              },
+              {
+                from: 30,
+                to: 60,
+                color: '#0d6836'
+              },
+              {
+                from: 60,
                 to: 100,
-                color: '#44a340'
+                color: '#49b6ff'
+              },
+              {
+                from: 100,
+                to: 200,
+                color: '#286cc4'
+              },
+              {
+                from: 200,
+                to: Infinity,
+                color: '#104a81'
               }
             ]
           }
