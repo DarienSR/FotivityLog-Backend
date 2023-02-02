@@ -1,22 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import { Route, Routes, Link } from "react-router-dom";
 
-import Dashboard from "./components/Dashboard"
-import Navbar from './components/Navbar';
-import AddSession from './components/AddSession';
-import EditSession from './components/EditSession';
-import Signup from './components/authentication/Signup';
-import Login from "./components/authentication/Login";
-import ResetPassword from "./components/authentication/ResetPassword";
+import Dashboard from "./dashboard/Dashboard"
+import Navbar from './common/Navbar';
+import AddSession from './sessions/AddSession';
+import EditSession from './sessions/EditSession';
+import Signup from './authentication/Signup';
+import Login from "./authentication/Login";
+import ResetPassword from "./authentication/ResetPassword";
+
+
+let content = <h1>Home Page</h1>
 
 function App() {
   return (
     <div className="App">
       <Navbar />
+
       <Routes>
+          <Route exact path="/" element={ content } />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/dashboard" element={<Dashboard />} />

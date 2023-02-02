@@ -4,7 +4,9 @@ import Heatmap from "./charts/Heatmap";
 import Treemap from './charts/Treemap';
 import 'react-calendar-heatmap/dist/styles.css';
 import { useNavigate, useLocation } from "react-router-dom";
-import Alert from "./Alert";
+import Alert from "../common/Alert";
+
+
 export default function Dashboard() {
   const { state } = useLocation();
   let navigate = useNavigate();

@@ -1,7 +1,7 @@
 import React from 'react';
 import CalendarHeatmap from 'react-calendar-heatmap'; // https://www.npmjs.com/package/react-calendar-heatmap
 import 'react-calendar-heatmap/dist/styles.css';
-import "../../App.css"
+
 
 const today = new Date();
 

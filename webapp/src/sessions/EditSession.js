@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import Session from "./Session";
-import Alert from "./Alert";
+import Alert from "../common/Alert";
 export default function EditSession() {
   let [sessions, setSessions] = useState(null);
   let [refreshToken, setRefreshToken]= useState(false);

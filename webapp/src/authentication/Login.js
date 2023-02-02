@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios'
-import { useInput } from "../../hooks/useInput";
+import { useInput } from "../hooks/useInput";
 import { useNavigate } from "react-router-dom";
 
-import ModularForm from '../ModularForm';
+import ModularForm from '../common/ModularForm';
 
 export default function Login() {
 

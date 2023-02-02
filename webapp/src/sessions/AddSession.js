@@ -3,7 +3,7 @@ import { useCheckbox } from "../hooks/useCheckbox";
 import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
-import Alert from "./Alert";
+import Alert from "../common/Alert";
 
 import { format } from "date-fns";
 

@@ -10,8 +10,6 @@
 
 */
 
-
-
 export default function ModularForm(props) {
   return (
     <form onSubmit={props.submitForm.onSubmit} style={styles.form}>

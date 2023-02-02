@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'
-import { useInput } from "../../hooks/useInput";
-import ModularForm from '../ModularForm';
+import { useInput } from "../hooks/useInput";
+import ModularForm from '../common/ModularForm';
 export default function SignUp() {
   const { value: username, bind: bindUsername, reset: resetUsername } = useInput("");
   const { value: password, bind: bindPassword, reset: resetPassword } = useInput("");

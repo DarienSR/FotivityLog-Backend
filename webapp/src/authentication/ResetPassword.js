@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios'
-import { useInput } from "../../hooks/useInput";
+import { useInput } from "../hooks/useInput";
 
 export default function ResetPassword() {
   const { value: username, bind: bindUsername, reset: resetUsername } = useInput("");

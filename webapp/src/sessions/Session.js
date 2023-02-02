@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useInput } from "../hooks/useInput";
 import axios from 'axios';
 import { useNavigate, useLocation } from "react-router-dom";
-import Alert from "./Alert";
+import Alert from "../common/Alert";
 
 export default function Session(props) {
   const { state } = useLocation();
