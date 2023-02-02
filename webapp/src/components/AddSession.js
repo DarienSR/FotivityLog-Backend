@@ -4,6 +4,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import Alert from "./Alert";
+
+import { format } from "date-fns";
+
 export default function AddSession() {
   const { state } = useLocation();
   let navigate = useNavigate();
@@ -30,13 +33,7 @@ export default function AddSession() {
   }, [refreshToken]);
   
   function getCurrentTime() {
-    var currentdate = new Date(); 
-    return currentdate.getFullYear() + "-"  +
-     (String(currentdate.getMonth())+1).padStart(2, '0')  + "-" 
-     + (String(currentdate.getDate()).padStart(2, '0')) + "T"
-                   + (String(currentdate.getHours())).padStart(2, '0') + ":"  
-                   + (String(currentdate.getMinutes())).padStart(2, '0');
-              
+    return format(new Date(), "yyyy-MM-dd hh:mm");
   }
   const { value: startTime } = useInput(getCurrentTime());  
 
@@ -49,7 +46,7 @@ export default function AddSession() {
   }
 
   let StartSessionForm = <div>
-    <input id="date" type="datetime-local" value={ startTime } />
+    <input id="date" value={ startTime } />
     <button onClick={ StartNewSession }>START</button>
   </div>
 
