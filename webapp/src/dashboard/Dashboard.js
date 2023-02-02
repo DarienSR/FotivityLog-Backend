@@ -17,7 +17,6 @@ export default function Dashboard() {
   let [alertIsVisible, setAlertIsVisible] = useState(false);
   let [alertError, setAlertError] = useState(false)
 
-  let getMinutes = function(start, end) { return Math.floor(((Math.abs(start  - end)) / 1000) / 60); } // hours
   // Check to see if there is an active session
   useEffect(() => {
     if(state !== null) {
@@ -65,12 +64,12 @@ let styles = {
   },
   component: {
     padding: '1rem',
-    backgroundColor: 'white',
+    backgroundColor: '#fff4f469',
     margin: '0.25rem',
     width: '40%',
-    borderRadius: '2%',
-    border: '2px solid #dfdede',
-    boxShadow: '2px 3px whitesmoke'
+    borderRadius: '0.5%',
+    border: '2px solid #dcd4d4',
+    boxShadow: '2px 2px 3px 2px #dcd4d4'
   },
   small: {
     width: '25%',

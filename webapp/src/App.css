@@ -17,8 +17,11 @@ body {
     transform: rotate(360deg);
   }
 }
-.react-calendar-heatmap .color-scale-0 { fill: #dde9a1; }
-.react-calendar-heatmap .color-scale-1 { fill: #d6e685; }
-.react-calendar-heatmap .color-scale-2 { fill: #8cc665; }
-.react-calendar-heatmap .color-scale-3 { fill: #44a340; }
-.react-calendar-heatmap .color-scale-4 { fill: #1e6823; }
+
+.react-calendar-heatmap .color-scale-1 { fill: #67ff49; }
+.react-calendar-heatmap .color-scale-2 { fill: #28c45c; }
+.react-calendar-heatmap .color-scale-3 { fill: #0d6836; }
+
+.react-calendar-heatmap .color-scale-4 { fill: #49b6ff; }
+.react-calendar-heatmap .color-scale-5 { fill: #286cc4; }
+.react-calendar-heatmap .color-scale-6 { fill: #104a81; }
