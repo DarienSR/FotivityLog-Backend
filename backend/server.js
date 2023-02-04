@@ -21,3 +21,5 @@ app.use("/user", UserRouter)
 
 // APP LISTENER
 app.listen(PORT, () => console.log("SERVER STATUS", `Listening on port ${PORT}`))
+
+module.exports = app;
