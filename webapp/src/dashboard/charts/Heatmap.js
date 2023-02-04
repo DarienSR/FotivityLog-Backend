@@ -12,7 +12,7 @@ export default function Heatmap(props) {
       <h1>History of Session (minutes)</h1>
       <CalendarHeatmap
         startDate={shiftDate(today, -200)}
-        endDate={today}
+        endDate={shiftDate(today, -1)}
         values={GroupSameDayDifferences(props.sessions)}
         classForValue={value => {
           if (!value) {

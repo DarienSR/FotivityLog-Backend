@@ -46,7 +46,7 @@ export default function AddSession() {
   }
 
   let StartSessionForm = <div>
-    <button onClick={ StartNewSession }>START</button>
+    <button style={{...styles.button, ...styles.startBtn}} onClick={ StartNewSession }>START</button>
   </div>
 
   const { value: topic, bind: bindTopic, reset: resetTopic } = useInput("");
@@ -120,6 +120,10 @@ export default function AddSession() {
 }
 
 let styles = {
+  startBtn: {
+    width: '30%',
+    alignSelf: 'center',
+  },
   label: {
     borderBottom: '0.35rem solid black',
     paddingBottom: '0.5rem'
