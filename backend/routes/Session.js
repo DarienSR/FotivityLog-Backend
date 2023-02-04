@@ -54,7 +54,7 @@ router.put('/finish', function(req, res) {
     let update = db.collection('sessions').updateOne(
       {$and: [{end_time: null}, {user_id: ObjectId(req.body.user_id)}]}, // select the session that does not have an end_time, should only be one
       { $set: { 
-        end_time: req.body.endTime,
+        end_time: req.body.end_time,
         topic: req.body.topic,
         desc: req.body.desc,
         location: req.body.location,

@@ -15,10 +15,11 @@ export function ProcessSessionData(data) {
     sessions.topics.push(session.topic.toUpperCase());
     sessions.locations.push(session.location.toUpperCase());
     sessions.times.push({
-      date: session.start_time.split('T')[0],
+      date: (session.start_time.split('T')[0]).split(' ')[0],
       difference: getMinutes(new Date(session.start_time), new Date(session.end_time))
     });
   })
+  console.log("s", sessions)
   return sessions;
 }
 
@@ -29,11 +30,11 @@ export function GroupSameDayDifferences(data) {
   data.forEach((session) => {
     sessions[session.date] = (sessions[session.date] || 0) + session.difference
   })
-
   // we are then reformatting the above
   let days = [];
   for(const property in sessions) {
     days.push({date: property, difference: sessions[property]})
   }
+  console.log(days)
   return days;
 }

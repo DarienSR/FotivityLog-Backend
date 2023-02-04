@@ -3,8 +3,8 @@ const { Schema, model } = require("../db/conn");
 const SessionSchema = new Schema({
   _id: { type: Schema.Types.ObjectId, required: true },
   user_id: { type: Schema.Types.ObjectId, required: true },
-  start_time: { type: Schema.Types.Date, required: true },
-  end_time: { type: Schema.Types.Date, default: null },
+  start_time: { type: Schema.Types.String, required: true },
+  end_time: { type: Schema.Types.String, default: null },
   topic: { type: Schema.Types.String, default: "", required: false },
   desc: { type: Schema.Types.String, default: "", required: false },
   location: { type: Schema.Types.String, default: "", required: false },

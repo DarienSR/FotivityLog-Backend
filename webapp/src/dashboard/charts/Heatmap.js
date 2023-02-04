@@ -35,7 +35,12 @@ export default function Heatmap(props) {
         }
 
         showWeekdayLabels={true}
-        onClick={value => alert(`Clicked on value with difference: ${value.difference / 60} hours`)}
+        onClick={(value) => {
+          if(value.difference < 60) 
+            alert(`Clicked on value with difference: ${value.difference } minutes`)
+          else
+            alert(`Clicked on value with difference: ${(value.difference / 60).toFixed(2) } hours`)
+        }}
       />
 
       <div style={{display: 'flex', justifyContent:'center', width: '50%', margin: '0 auto'}}>

@@ -62,7 +62,6 @@ for (let index = 0; index < list.length; ++index) {
 
 let styles = {
   dashboardContainer: {
-    backgroundColor: 'white',
     padding: '1rem',
     display: 'flex',
     flexDirection: 'row',

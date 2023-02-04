@@ -33,12 +33,12 @@ export default function AddSession() {
   }, [refreshToken]);
   
   function getCurrentTime() {
-    return format(new Date(), "yyyy-MM-dd hh:mm");
+    return format(new Date(), "yyyy-MM-dd hh:mm aaaaa'm'");
   }
-  const { value: startTime } = useInput(getCurrentTime());  
+  
 
   function StartNewSession() {
-    axios.post(`${process.env.REACT_APP_URL}session/start`, { start_time: document.getElementById('date').value, user_id: state.id  }).then(function(response) {
+    axios.post(`${process.env.REACT_APP_URL}session/start`, { start_time: getCurrentTime(), user_id: state.id  }).then(function(response) {
       setRefreshToken(!refreshToken)      
     }).catch(function(err) {
       console.log(err);
@@ -46,7 +46,6 @@ export default function AddSession() {
   }
 
   let StartSessionForm = <div>
-    <input id="date" value={ startTime } />
     <button onClick={ StartNewSession }>START</button>
   </div>
 
@@ -60,7 +59,7 @@ export default function AddSession() {
 
   const FinishSession = (e) => {
     e.preventDefault()
-    let values = { user_id: state.id, topic, desc, location, social, distracted, focused, deep_work, endTime: document.getElementById('endTime').value }
+    let values = { user_id: state.id, topic, desc, location, social, distracted, focused, deep_work, end_time: getCurrentTime() }
     axios.put(`${process.env.REACT_APP_URL}session/finish`, values).then(function(response) {
       setAlertIsVisible(true);
       setAlertError(false);
@@ -107,18 +106,9 @@ export default function AddSession() {
     </label>
     <label style={ styles.text }>Deep Work
       <input style={styles.inputCB} type="checkbox" {...bindDeep_Work} />
-    </label>
-    <label style={ styles.text }>
-      <input id="endTime" style={styles.input} type="datetime-local" />
-      <button style={styles.buttonUpdate} onClick={function(e) {
-        e.preventDefault()
-        setHasUpdatedTime(true)
-        document.getElementById('endTime').value = getCurrentTime();
-      }}>Update Time</button>
-    </label>
-    {
-      hasUpdatedTime ? <button style={styles.button} onClick={FinishSession}>Add Session</button> : "Please select a time"
-    }
+    </label>    
+     <button style={styles.button} onClick={FinishSession}>Add Session</button>
+    
   </form>
 
   return (
