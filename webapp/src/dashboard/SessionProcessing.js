@@ -7,20 +7,63 @@ export function ProcessSessionData(data) {
   let sessions = {
     topics: [],
     locations: [],
-    times: []
+    times: [],
+    totalMinutes: 0,
+    topicByMinutes: {},
+    locationByMinutes: {}
   };
 
   // loop through each session and start aggregating their information
+  let totalMinutes = 0;
+  let topicByMinutes = {};
+  let locationByMinutes = {};
   data.forEach((session) => {
+    if(session.end_time === null) return; // do not do any processing for on-going sessions
     sessions.topics.push(session.topic.toUpperCase());
     sessions.locations.push(session.location.toUpperCase());
+    let sessionLength = DetermineSessionLength(session, sessions);
+    totalMinutes += sessionLength
+    topicByMinutes[session.topic] = (topicByMinutes[session.topic] || 0) + sessionLength;
+    locationByMinutes[session.location] = (locationByMinutes[session.location] || 0) + sessionLength;
+  })
+  sessions.totalMinutes = totalMinutes;
+  sessions.topicByMinutes = topicByMinutes;
+  sessions.locationByMinutes = locationByMinutes;
+  return sessions;
+}
+
+// Helper function
+function DetermineSessionLength(session, sessions) {
+  let start = new Date(session.start_time);
+  let end = new Date(session.end_time);
+  let totalMinutes = 0;
+  // determine if the session spans multiple days
+  if(!(start.getDay() === end.getDay())) {
+    let midnight = new Date(end.setHours(0, 0, 0, 0))
+    // find difference between start and midnight. 
+    let differenceStart = getMinutes(new Date(session.start_time), new Date(midnight));
     sessions.times.push({
       date: (session.start_time.split('T')[0]).split(' ')[0],
-      difference: getMinutes(new Date(session.start_time), new Date(session.end_time))
+      difference: differenceStart
     });
-  })
-  console.log("s", sessions)
-  return sessions;
+    let differenceEnd = getMinutes(new Date(midnight), new Date(session.end_time))
+    // find difference between midnight and end
+    sessions.times.push({
+      date: (session.end_time.split('T')[0]).split(' ')[0],
+      difference: differenceEnd
+    });
+    totalMinutes += differenceStart;
+    totalMinutes += differenceEnd;
+  } else {
+    // sessions contained all in the same day
+    let difference = getMinutes(new Date(session.start_time), new Date(session.end_time));
+    sessions.times.push({
+      date: (session.start_time.split('T')[0]).split(' ')[0],
+      difference: difference
+    });
+    totalMinutes += difference;
+  }
+  return totalMinutes 
 }
 
 export function GroupSameDayDifferences(data) {
@@ -35,6 +78,5 @@ export function GroupSameDayDifferences(data) {
   for(const property in sessions) {
     days.push({date: property, difference: sessions[property]})
   }
-  console.log(days)
   return days;
 }

@@ -8,6 +8,7 @@ import Alert from "../common/Alert";
 
 import "./SessionProcessing"; // imports all functions from file
 import { ProcessSessionData } from './SessionProcessing';
+import InfoDisplay from './charts/InfoDisplay';
 
 export default function Dashboard() {
   const { state } = useLocation();
@@ -35,10 +36,12 @@ export default function Dashboard() {
   return(
     <>
       <Alert alert={ setAlert } isVisible={ alertIsVisible } alertError={ alertError }/>
-      <h1>Dashboard</h1>
       <div style={ styles.dashboardContainer }>
         <div style={{ ...styles.component, ...styles.large}}>
           <Heatmap sessions={ data.times }  />
+        </div>
+        <div style={{ ...styles.component, ...styles.medium}}>
+          <InfoDisplay sessions={ data }  />
         </div>
       </div>
 
@@ -46,7 +49,7 @@ export default function Dashboard() {
         <div style={ { ...styles.component, ...styles.medium } }>
           <Treemap data={ data.locations } title="Locations" />
         </div>
-        <div style={{ ...styles.component, ...styles.medium }}>
+        <div style={{ ...styles.component, ...styles.large }}>
           <Treemap data={ data.topics } title="Topics" />
         </div>
       </div>
@@ -83,6 +86,5 @@ let styles = {
   },
   large: {
     width: '80%',
-    margin: '0 auto'
   }
 }
