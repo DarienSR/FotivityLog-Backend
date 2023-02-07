@@ -3,7 +3,7 @@ import { useInput } from "../hooks/useInput";
 import axios from 'axios';
 import { useNavigate, useLocation } from "react-router-dom";
 import Alert from "../common/Alert";
-
+import Button from "../common/Button";
 export default function Session(props) {
   const { state } = useLocation();
   let session_start = new Date(props.session.start_time);
@@ -81,14 +81,6 @@ export default function Session(props) {
         <Alert alert={ alert } isVisible={ alertIsVisible } alertError={ alertError }/>
          <p style={styles.close} onClick={() => setTogglePopup(!togglePopup)}>EXIT</p>
          <h1 style={ styles.header }>Edit Session</h1>
-         <label style={styles.label}>Start Time <b>{ session_start.toLocaleString() }</b>
-            <input style={styles.input} type="datetime" {...bindStartTime} />
-          </label>
-
-          <label style={styles.label}>End Time  <b>{ session_end.toLocaleString() }</b> 
-          <input style={styles.input} type="datetime" {...bindEndTime} />
-          </label>
-
           <label style={styles.label}>Topic
             <input style={styles.input} type="text" {...bindTopic} />
           </label>
@@ -98,6 +90,14 @@ export default function Session(props) {
           <label style={styles.label}>Location
             <input style={styles.input} type="text" {...bindLocation} />
           </label>
+         <label style={styles.label}>Start Time <b>{ session_start.toLocaleString() }</b>
+            <input style={styles.input} type="datetime" {...bindStartTime} />
+          </label>
+
+          <label style={styles.label}>End Time  <b>{ session_end.toLocaleString() }</b> 
+          <input style={styles.input} type="datetime" {...bindEndTime} />
+          </label>
+
 
           <div>
             <label style={styles.label}>Social
@@ -113,10 +113,7 @@ export default function Session(props) {
               <input style={styles.inputCB} type="checkbox" checked={deep_work} onChange={() => setDeepWork(!deep_work)} />
             </label>
           </div>
-          <button
-            onMouseEnter={(e) => {e.target.style.boxShadow = '0.2rem 0.2rem #debbbb'; }} 
-            onMouseLeave={(e) => {e.target.style.boxShadow = 'none'; }}
-          style={ styles.button } onClick={UpdateSession}>Save</button>
+          <Button onClick={UpdateSession} text={"Save"} />
         </form>
       </div> : null }
     </>

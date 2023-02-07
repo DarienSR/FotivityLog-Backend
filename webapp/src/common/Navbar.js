@@ -1,10 +1,15 @@
 import { useLocation, useNavigate } from "react-router-dom";
-
+import React, { useEffect } from 'react';
 export default function Navbar(props) {
   const { state } = useLocation();
   let navigate = useNavigate();
   let isLoggedOn;
   
+  useEffect(() => {
+    HandleNavigation("dashboard") // this will fire only on first render to get the initial tab underline
+    console.log("er")
+}, []);
+
   if(state === null) { 
     isLoggedOn = <>
     <p onClick={() =>  navigate("/login", { state })} style={ styles.text }>Login</p> 
@@ -18,7 +23,8 @@ export default function Navbar(props) {
   }
 
   function HandleNavigation(url) {
-    let collection = document.getElementsByTagName('img');
+    let collection = document.getElementsByClassName('nav-link');
+    console.log(collection)
     for(let i = 0; i < collection.length; i++) {
       if(collection[i].id === url) collection[i].style.borderBottom  = "4px solid black";
       else  collection[i].style.borderBottom  = "none";
@@ -27,16 +33,34 @@ export default function Navbar(props) {
   }
 
   let nav = <div style={styles.components}>
-  <img id="organizer" title="Edit Sessions" onClick={() =>  HandleNavigation("organizer")} alt="Navigate to Organizer Page" style={styles.image} src="./organizer.png" />
+
+  <p 
+    onMouseEnter={(e) => e.target.style.backgroundColor = "#80808040"}
+    onMouseLeave={(e) => e.target.style.backgroundColor = "white"}
+    id="organizer" className="nav-link" title="Organizer tab" onClick={() =>  HandleNavigation("organizer")} alt="Navigate to Organizer Tab" style={styles.link}>Organizer</p>
+  <p 
+    onMouseEnter={(e) => e.target.style.backgroundColor = "#80808040"}
+    onMouseLeave={(e) => e.target.style.backgroundColor = "white"}
+    id="dashboard" className="nav-link" title="Dashboard Tab" onClick={() =>  HandleNavigation("dashboard")} alt="Navigate to Dashboard Tab" 
+    style={{...styles.link, borderBottom: "4px solid black"}}>Dashboard</p>
+  <p 
+    onMouseEnter={(e) => e.target.style.backgroundColor = "#80808040"}
+    onMouseLeave={(e) => e.target.style.backgroundColor = "white"}
+    id="add" className="nav-link" title="Add Sessions" onClick={() =>  HandleNavigation("add")} alt="Navigate to Add Session Tab" style={styles.link}>Add Session</p>
+  <p 
+    onMouseEnter={(e) => e.target.style.backgroundColor = "#80808040"}
+    onMouseLeave={(e) => e.target.style.backgroundColor = "white"}
+    id="edit" className="nav-link" title="Edit Sessions" onClick={() =>  HandleNavigation("edit")} alt="Navigate to Edit Session Tab" style={styles.link}>Edit Sessions</p>
+  {/* <img id="organizer" title="Edit Sessions" onClick={() =>  HandleNavigation("organizer")} alt="Navigate to Organizer Page" style={styles.image} src="./organizer.png" />
   <img id="dashboard" title="View Graphs" onClick={() => HandleNavigation("dashboard")} alt="Navigate to Graph Page" style={styles.image} src="./graph.png" />
   <img id="add" title="Add Sessions" onClick={() => HandleNavigation("add")} alt="Navigate to Add Session Page" style={styles.image} src="./add.png" />
-  <img id="edit" title="Edit Sessions" onClick={() =>  HandleNavigation("edit")} alt="Navigate to Edit Session Page" style={styles.image} src="./edit.png" />
+  <img id="edit" title="Edit Sessions" onClick={() =>  HandleNavigation("edit")} alt="Navigate to Edit Session Page" style={styles.image} src="./edit.png" /> */}
 </div>
 
   return (
     <>
     <div style={styles.nav}>
-      <h1 style={ styles.name }>FocivityLog</h1>
+      <h1 style={ styles.name }>FotivityLog</h1>
       { state === null ? <div style={styles.components}></div> : nav }
       <div style={styles.auth}>
         { isLoggedOn }       
@@ -64,14 +88,16 @@ const styles = {
     backgroundColor: 'white',
     zIndex: 10
   },
-  image: {
-    height: '50px',
-    width: '50px',
+  link: {
     margin: '0rem 2rem',
-    paddingTop: 15,
+    marginTop: '1.7rem',
+    padding: "0.4rem",
+    fontSize: "1.5rem",
     cursor: "pointer",
     alignSelf: 'center',
-    paddingBottom: '0.2rem',
+    borderRadius: "1%",
+    transition: '0.6s',
+    paddingBottom: 0,
   },
   text: {
     height: '50px',

@@ -1,15 +1,4 @@
-/* 
-
-<Form inputs=[ { field: "username", type: "text" } ] 
-  submitForm={ 
-    btnText: "Submit"
-    onSubmit: function () { axios.post() } // does this submit then call parent alert function?
-  }
-  tile: "Add Session"
-/>
-
-*/
-
+import Button from "../common/Button";
 export default function ModularForm(props) {
   return (
     <form onSubmit={props.submitForm.onSubmit} style={styles.form}>
@@ -24,11 +13,7 @@ export default function ModularForm(props) {
             </div>
           })
         }
-      
-        <button onMouseEnter={(e) => {e.target.style.boxShadow = '0.2rem 0.2rem #debbbb'; }} 
-                onMouseLeave={(e) => {e.target.style.boxShadow = 'none'; }}
-                style={styles.button} type="submit">{ props.submitForm.btnText }
-        </button>
+        <Button text={props.submitForm.btnText } />
     </form>
   )
 
@@ -41,7 +26,6 @@ let styles = {
     fontSize: '3rem',
     fontWeight: 'bold'
   },
-
   form: {
     padding: 30,
     justifyContent: 'center',
@@ -55,17 +39,6 @@ let styles = {
     borderTop: '0.5rem solid rgb(62 57 57)',
     boxShadow: '1px 4px 4px 3px #debbbb',
   },
-  button: {
-    width: '30%',
-    alignSelf: 'flex-end',
-    fontSize: '1.5rem',
-    padding: '0.75rem',
-    fontWeight: 'bold',
-    backgroundColor: 'white',
-    marginTop: '1rem',
-    border: '3px solid black',
-    cursor: 'pointer',
-  },
   text: {
     fontSize: '1.5rem',
     padding: '0.75rem',
@@ -75,10 +48,10 @@ let styles = {
     justifyContent: 'flex-start'
   }, 
   input: {
-    width: '100%',
     border: '2px solid black',
     fontSize: '1.5rem',
     padding: '0.4rem',
+    width: '80%'
   }, 
   inputCB: {
     border: '2px solid black',
