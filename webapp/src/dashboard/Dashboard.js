@@ -32,13 +32,12 @@ export default function Dashboard() {
       navigate("/login", { state })
     }
   }, []);
-
   return(
     <>
       <Alert alert={ setAlert } isVisible={ alertIsVisible } alertError={ alertError }/>
       <div style={ styles.dashboardContainer }>
         <div style={{ ...styles.component, ...styles.large}}>
-          <Heatmap sessions={ data.times }  />
+          <Heatmap sessions={ data.times }  /> 
         </div>
         <div style={{ ...styles.component, ...styles.medium}}>
           <InfoDisplay sessions={ data }  />

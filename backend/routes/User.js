@@ -11,6 +11,7 @@ const { SECRET = "secret" } = process.env;
 
 // Signup route to create a new user
 router.post("/create", async (req, res) => {
+  return;
   try {
     // hash the password
     req.body.password = await bcrypt.hash(req.body.password, 10);

@@ -4,11 +4,11 @@ export default function Alert(props) {
     let styles = {
       container: {
         width: '30%',
-        backgroundColor: props.alertError ? '#ff3535' : '#35ff45',
+        backgroundColor: props.alertError ? '#ffbaba' : '#bcffba',
         borderTop: '3px solid black',
         margin: '0 auto',
-        padding: '0.1rem',
-        boxShadow: '1px 3px gray',
+        padding: '0.2rem',
+        boxShadow: '1px 3px 3px 2px #debbbb',
         marginBottom: '0.5rem',
       },
       alert: {

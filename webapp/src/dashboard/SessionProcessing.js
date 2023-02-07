@@ -10,7 +10,8 @@ export function ProcessSessionData(data) {
     times: [],
     totalMinutes: 0,
     topicByMinutes: {},
-    locationByMinutes: {}
+    locationByMinutes: {},
+    todaysHours: 0
   };
 
   // loop through each session and start aggregating their information
@@ -36,6 +37,7 @@ export function ProcessSessionData(data) {
 function DetermineSessionLength(session, sessions) {
   let start = new Date(session.start_time);
   let end = new Date(session.end_time);
+
   let totalMinutes = 0;
   // determine if the session spans multiple days
   if(!(start.getDay() === end.getDay())) {

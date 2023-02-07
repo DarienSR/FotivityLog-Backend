@@ -15,7 +15,7 @@ export default function AddSession() {
   let [refreshToken, setRefreshToken] = useState(false);
   let [hasUpdatedTime, setHasUpdatedTime] = useState(false);
 
-  let [alert, setAlert] = useState("");
+  let [alert, setAlert] = useState(""); // actual alert content
   let [alertIsVisible, setAlertIsVisible] = useState(false);
   let [alertError, setAlertError] = useState(false);
 
@@ -107,7 +107,10 @@ export default function AddSession() {
     <label style={ styles.text }>Deep Work
       <input style={styles.inputCB} type="checkbox" {...bindDeep_Work} />
     </label>    
-     <button style={styles.button} onClick={FinishSession}>Add Session</button>
+     <button 
+     onMouseEnter={(e) => {e.target.style.boxShadow = '0.2rem 0.2rem #debbbb'; }} 
+     onMouseLeave={(e) => {e.target.style.boxShadow = 'none'; }}
+     style={styles.button} onClick={FinishSession}>Add Session</button>
     
   </form>
 

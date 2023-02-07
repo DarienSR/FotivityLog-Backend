@@ -1,6 +1,6 @@
 export default function InfoDisplay(props) {
   if(props.sessions.length === 0) return;
-
+  if(props.sessions.topics.length <= 0) return <p style={styles.noDataError}>No Data Available</p> 
   return(
     <div>
       <h2>Session Statistics</h2>
@@ -38,6 +38,14 @@ export default function InfoDisplay(props) {
 let styles = {
   groupContainers: {
     display: 'flex',
+  },
+  noDataError: {
+    alignSelf: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    height:'100%',
+    margin: 0
   },
   container: {
     display: 'flex',

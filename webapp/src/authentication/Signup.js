@@ -16,13 +16,14 @@ export default function SignUp() {
   }
 
   return (
-  <ModularForm 
-    inputs = {[
-    { field: 'Username', type:'text', bindInput: bindUsername }, 
-    { field: 'Password', type:'password', bindInput: bindPassword },
-    { field: 'Email', type:'text', bindInput: bindEmail },
-    ]}
-    submitForm = {{ btnText: 'Sign Up', onSubmit: SignUp }} title = 'Sign Up' />
+  <h3>We are currently not accepting any more users. If you are interested in this application please contact me at dsrsloan@gmail.com</h3>
+  // <ModularForm 
+  //   inputs = {[
+  //   { field: 'Username', type:'text', bindInput: bindUsername }, 
+  //   { field: 'Password', type:'password', bindInput: bindPassword },
+  //   { field: 'Email', type:'text', bindInput: bindEmail },
+  //   ]}
+  //   submitForm = {{ btnText: 'Sign Up', onSubmit: SignUp }} title = 'Sign Up' />
  )
 }
 

@@ -3,6 +3,8 @@ import Chart from "react-apexcharts";
 
 export default function Treemap(props) {
   if(props.data === undefined) return null;
+  if(props.data.length <= 0) return <p style={styles.noDataError}>No Data Available</p> 
+
   function mapWordCounts(words) {
     const counts = new Map();
     for (const word of words) { counts.set(word, (counts.get(word) ?? 0) + 1) }
@@ -77,6 +79,17 @@ export default function Treemap(props) {
     },
   };
   return <Chart options={ data.options } series={ data.series } type="treemap" height={ 550 } />
+}
+
+let styles = {
+  noDataError: {
+    alignSelf: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    height:'100%',
+    margin: 0
+  },
 }
 
 

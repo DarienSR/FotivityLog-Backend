@@ -63,7 +63,8 @@ export default function Session(props) {
   return (
     <>
       <div style={styles.sessionContainer} key={props.session._id} >
-        <div onClick={() => setTogglePopup(!togglePopup)} style={styles.session}>
+        <div 
+          onClick={() => setTogglePopup(!togglePopup)} style={styles.session}>
           <div style={styles.placeholder}></div>
           <p style={styles.p}>{ session_start.toDateString()  } { session_start.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
           <p style={styles.p}><b>{props.session.topic}</b></p>
@@ -112,7 +113,10 @@ export default function Session(props) {
               <input style={styles.inputCB} type="checkbox" checked={deep_work} onChange={() => setDeepWork(!deep_work)} />
             </label>
           </div>
-          <button style={ styles.button } onClick={UpdateSession}>Save</button>
+          <button
+            onMouseEnter={(e) => {e.target.style.boxShadow = '0.2rem 0.2rem #debbbb'; }} 
+            onMouseLeave={(e) => {e.target.style.boxShadow = 'none'; }}
+          style={ styles.button } onClick={UpdateSession}>Save</button>
         </form>
       </div> : null }
     </>

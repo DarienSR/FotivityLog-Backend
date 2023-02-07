@@ -6,7 +6,7 @@ const today = new Date();
 
 export default function Heatmap(props) {
   if(props.sessions === undefined) return null;
-
+  if(props.sessions.length <= 0) return <p style={styles.noDataError}>No Data Available</p> 
   return (
     <>
       <h1>History of Session (minutes)</h1>
@@ -64,3 +64,13 @@ function shiftDate(date, numDays) {
   return newDate;
 }
 
+let styles = {
+  noDataError: {
+    alignSelf: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    height:'100%',
+    margin: 0
+  },
+}

@@ -25,7 +25,10 @@ export default function ModularForm(props) {
           })
         }
       
-        <button style={styles.button} type="submit">{ props.submitForm.btnText }</button>
+        <button onMouseEnter={(e) => {e.target.style.boxShadow = '0.2rem 0.2rem #debbbb'; }} 
+                onMouseLeave={(e) => {e.target.style.boxShadow = 'none'; }}
+                style={styles.button} type="submit">{ props.submitForm.btnText }
+        </button>
     </form>
   )
 
