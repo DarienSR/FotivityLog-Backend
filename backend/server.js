@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 // Create Application Object
 var app = express()
 // GLOBAL MIDDLEWARE
-app.use(cors({origin: true, credentials: true}));
+app.use(cors());
 app.use(express.json()) // parse json bodies
 
 
