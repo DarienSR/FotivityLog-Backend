@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import Alert from "../common/Alert";
-import Button from "../common/Button";
+
 import { format } from "date-fns";
 
 export default function AddSession() {
@@ -107,7 +107,11 @@ export default function AddSession() {
     <label style={ styles.text }>Deep Work
       <input style={styles.inputCB} type="checkbox" {...bindDeep_Work} />
     </label>    
-    <Button onClick={FinishSession} text={"Add Session"} />
+     <button 
+     onMouseEnter={(e) => {e.target.style.boxShadow = '0.2rem 0.2rem #debbbb'; }} 
+     onMouseLeave={(e) => {e.target.style.boxShadow = 'none'; }}
+     style={styles.button} onClick={FinishSession}>Add Session</button>
+    
   </form>
 
   return (
@@ -149,6 +153,18 @@ let styles = {
     alignSelf: 'center',
     fontSize: '1.5rem',
     padding: '0.75rem',
+    fontWeight: 'bold',
+    backgroundColor: 'white',
+    marginTop: '1rem',
+    border: '3px solid black',
+    cursor: 'pointer',
+  },
+  buttonUpdate: {
+    width: '30%',
+    alignSelf: 'center',
+    fontSize: '1.5rem',
+    padding: '0.75rem',
+    pointer: 'cursor',
     fontWeight: 'bold',
     backgroundColor: 'white',
     marginTop: '1rem',
