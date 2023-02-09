@@ -9,7 +9,9 @@ const PORT = process.env.PORT || 5000;
 // Create Application Object
 var app = express()
 // GLOBAL MIDDLEWARE
-app.use(cors());
+app.use(
+  cors({origin: ['https://fotivitylog.com/']})
+);
 app.use(express.json()) // parse json bodies
 
 
