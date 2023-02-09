@@ -10,7 +10,11 @@ const PORT = process.env.PORT || 5000;
 var app = express()
 // GLOBAL MIDDLEWARE
 app.use(
-  cors({origin: ['https://fotivitylog.com/']})
+  cors({origin: ['https://fotivitylog.com/', 'https://focivity-log-api.vercel.app/'],
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204})
+  
 );
 app.use(express.json()) // parse json bodies
 
