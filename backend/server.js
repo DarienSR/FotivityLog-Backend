@@ -14,8 +14,10 @@ app.use(
   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
   "preflightContinue": false,
   "optionsSuccessStatus": 204})
-  
 );
+
+app.options('*', cors()) // include before other routes
+
 app.use(express.json()) // parse json bodies
 
 
