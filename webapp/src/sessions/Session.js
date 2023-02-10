@@ -81,6 +81,9 @@ export default function Session(props) {
         <Alert alert={ alert } isVisible={ alertIsVisible } alertError={ alertError }/>
          <p style={styles.close} onClick={() => setTogglePopup(!togglePopup)}>EXIT</p>
          <h1 style={ styles.header }>Edit Session</h1>
+        <label style={styles.label}>Topic
+          <input style={styles.input} type="text" {...bindTopic} />
+        </label>
          <label style={styles.label}>Start Time <b>{ session_start.toLocaleString() }</b>
             <input style={styles.input} type="datetime" {...bindStartTime} />
           </label>
@@ -89,9 +92,6 @@ export default function Session(props) {
           <input style={styles.input} type="datetime" {...bindEndTime} />
           </label>
 
-          <label style={styles.label}>Topic
-            <input style={styles.input} type="text" {...bindTopic} />
-          </label>
           <label style={styles.label}>Description
             <input style={styles.input} type="text" {...bindDesc} />
           </label>
