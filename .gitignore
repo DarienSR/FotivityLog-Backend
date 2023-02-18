@@ -1,3 +1,4 @@
 .env
 config.env
 /db_backup
+logs
