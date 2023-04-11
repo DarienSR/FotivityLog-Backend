@@ -26,27 +26,6 @@ app.use('/sessions', require('./routes/sessionRoutes'))
 
 
 
-app.all('*', (req, res) => {
-  if(req.accepts('html')) 
-    res.sendFile(path.join(__dirname, 'views', '404.html'))
-  else if (req.accepts('json'))
-    res.json({ message: '404 Not Found' })
-  else 
-    res.type('txt').send('404 Not Found')
-
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-})
-//enables cors
-app.use(cors({
-  'allowedHeaders': ['sessionId', 'Content-Type'],
-  'exposedHeaders': ['sessionId'],
-  'origin': '*',
-  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  'preflightContinue': false
-}));
-
 app.use(errorHandler)
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB')
