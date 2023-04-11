@@ -14,7 +14,9 @@ const PORT = process.env.PORT || 5000
 connectDB()
 app.use(logger)
 
-app.use(cors(corsOptions))
+app.use(cors({
+  origin: 'https://fotivitylog.com'
+}))
 app.use(express.json())
 app.use(cookieParser())
 
