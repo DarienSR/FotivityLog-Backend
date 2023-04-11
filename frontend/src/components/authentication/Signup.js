@@ -88,7 +88,7 @@ const NewUserForm = () => {
       type="text"
       autoComplete="off"
       value={email}
-      onChange={email}
+      onChange={onEmailChanged}
     />
 
 <label htmlFor="password">Password</label>
