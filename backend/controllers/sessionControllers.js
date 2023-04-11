@@ -7,7 +7,7 @@ var ObjectId = require('mongodb').ObjectId;
 // @access public
 const getAllSessions = asyncHandler(async (req, res) => {
   console.log(req.params)
-  const sessions = await Session.find({user_id: ObjectId(req.params.userID)}).lean()
+  const sessions = await Session.find({user_id: new ObjectId(req.params.userID)}).lean()
   console.log(req.params.userID, sessions)
   if(!sessions || sessions.length <= 0) // optional chaning. Check to see if users exists, if true check length 
     return res.status(400).json({ message: 'No sessions found' })
@@ -17,7 +17,7 @@ const getAllSessions = asyncHandler(async (req, res) => {
 const getSessionById = asyncHandler(async (req, res) => {
   console.log("UNIQUE")
   console.log(req.params)
-  const sessions = await Session.find({_id: ObjectId(req.params.id)}).lean()
+  const sessions = await Session.find({_id: new ObjectId(req.params.id)}).lean()
   console.log(req.params.id, sessions)
   if(!sessions || sessions.length <= 0) // optional chaning. Check to see if users exists, if true check length 
     return res.status(400).json({ message: 'No sessions found' })
@@ -26,7 +26,7 @@ const getSessionById = asyncHandler(async (req, res) => {
 
 const getActiveSession = asyncHandler(async (req, res) => {
   console.log("Find users active: ", req.params)
-  const sessions = await Session.find({$and: [ { user_id: ObjectId(req.params.id) }, { end_time: null }]}).lean()
+  const sessions = await Session.find({$and: [ { user_id: new ObjectId(req.params.id) }, { end_time: null }]}).lean()
 
   if(!sessions || sessions.length <= 0) {
     console.log("No active")
