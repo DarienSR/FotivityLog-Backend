@@ -1,14 +1,12 @@
-const { Schema, model } = require("../db/conn");
+const mongoose = require('mongoose')
 
-// User Schema
-const UserSchema = new Schema({
-    username: { type: String, unique: true, required: true },
-    password: { type: String, required: true },
-    _id: { type: Schema.Types.ObjectId , required: true },
-    email: { type: String, unique: true, required: false },
-    joined_on: { type: Schema.Types.Date, default: Date() },
-});
+const userSchema = new mongoose.Schema({
+  username: { type: String, require: true },
+  password: { type: String, require: true },
+  email: { type: String, require: true },
+  roles: [{ type: String, default: 'User' }],
+  joined_on: { type: String, require: true, default: Date() },
+  last_active: { type: String, require: false }
+})
 
-// User model
-const User = model("User", UserSchema)
-module.exports = User
+module.exports = mongoose.model('User', userSchema)

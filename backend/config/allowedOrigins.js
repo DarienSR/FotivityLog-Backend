@@ -1,6 +1,7 @@
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://fotivitylog.com'
+  'https://www.fotivitylog.com',
+  'https://fotivitylog.com',
 ]
 
-module.exports = allowedOrigins;
+module.exports = allowedOrigins
