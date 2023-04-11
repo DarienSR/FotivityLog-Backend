@@ -13,6 +13,8 @@ const PORT = process.env.PORT || 5000
 
 connectDB()
 app.use(logger)
+// Enable preflight requests for all routes
+app.options('*', cors(corsOptions));
 app.use(cors(corsOptions))
 app.use(express.json())
 app.use(cookieParser())
@@ -22,6 +24,7 @@ app.use('/', require('./routes/root'))
 app.use('/auth', require('./routes/authRoutes'))
 app.use('/users', require('./routes/userRoutes'))
 app.use('/sessions', require('./routes/sessionRoutes'))
+
 
 
 app.all('*', (req, res) => {
