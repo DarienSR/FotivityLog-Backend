@@ -2,16 +2,6 @@ const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 
-// @desc get all users
-// @route GET /users
-// @access Private, admin role
-const getAllUsers = asyncHandler(async (req, res) => {
-  // do not return the password back to the client
-  const users = await User.find().select('-password').lean()
-  if(!users?.length) // optional chaning. Check to see if users exists, if true check length 
-    return res.status(400).json({ message: 'No users found' })
-  res.json(users)
-})
 
 // @desc create new users
 // @route POST /users
@@ -100,7 +90,6 @@ const deleteUser = asyncHandler(async (req, res) => {
 })
 
 module.exports = {
-  getAllUsers,
   createNewUser,
   updateUser,
   deleteUser
