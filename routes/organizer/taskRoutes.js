@@ -8,10 +8,13 @@ router.use(verifyJWT) // applies to all routes
 router.route('/:userID/schedule/')
   .get(tasksController.getAllScheduledTasks)
   .post(tasksController.createNewScheduledTask)
+
 router.route('/:userID/project/:id')
   .get(tasksController.getAllProjectTasks)
 
 
+router.route('/:userID/:id')
+.put(tasksController.updateTask)
 
 router.route('/:userID')
   .get(tasksController.getTaskById)
