@@ -7,7 +7,7 @@ router.use(verifyJWT) // applies to all routes
 
 router.route('/:userID/schedule/')
   .get(tasksController.getAllScheduledTasks)
-  
+  .post(tasksController.createNewScheduledTask)
 router.route('/:userID/project/:id')
   .get(tasksController.getAllProjectTasks)
 

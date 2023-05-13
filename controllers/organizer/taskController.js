@@ -8,6 +8,8 @@ var ObjectId = require('mongodb').ObjectId;
 const getAllScheduledTasks = asyncHandler(async (req, res) => {
   console.log(req.body, req.params)
   const tasks = await Task.find({$and: [ { user_id: new ObjectId(req.params.userID) }, {belongsToProject: false}, { completed_on: null }]}).lean()
+
+  console.log(tasks)
   if(!tasks || tasks.length <= 0) // optional chaning. Check to see if users exists, if true check length 
     return res.status(400).json({ message: 'No tasks found' })
   res.json(tasks)
@@ -16,7 +18,9 @@ const getAllScheduledTasks = asyncHandler(async (req, res) => {
 
 // @route GET /tasks/project/:id
 const getAllProjectTasks = asyncHandler(async (req, res) => {
-  const tasks = await Task.find({$and: [ { user_id: new ObjectId(req.body.user_id) }, {project_id: req.params.id}]}).lean()
+  console.log(req.params)
+  const tasks = await Task.find({$and: [ { user_id: new ObjectId(req.params.userID) }, {project_id: new ObjectId(req.params.id)}]}).lean()
+  console.log(tasks)
   if(!tasks || tasks.length <= 0) // optional chaning. Check to see if users exists, if true check length 
     return res.status(400).json({ message: 'No tasks found' })
   res.json(tasks)
@@ -35,6 +39,9 @@ const getTaskById = asyncHandler(async (req, res) => {
 // @access public
 const createNewTask = asyncHandler(async (req, res) => {
   console.log("Creating task")
+
+  console.log(req.body, req.params)
+
   // add required data
   req.body.created_on = new Date().toString() 
   
@@ -50,6 +57,28 @@ const createNewTask = asyncHandler(async (req, res) => {
     res.status(400).json({ message: 'Error occured while creating new task.' })
   }
 })
+
+const createNewScheduledTask = asyncHandler(async (req, res) => {
+  console.log("Creating schedule task")
+
+  console.log(req.body, req.params)
+
+  // add required data
+  req.body.created_on = new Date().toString() 
+  
+  // create and store new task
+  const newTask = await Task.create(req.body)
+
+  if(newTask) {
+    console.log("Success")
+    res.status(201).json({ message: `New task created` })
+  }
+  else {
+    console.log("nope")
+    res.status(400).json({ message: 'Error occured while creating new task.' })
+  }
+})
+
 
 
 // @desc update existing task
@@ -103,6 +132,7 @@ module.exports = {
   getAllProjectTasks,
   getTaskById,
   createNewTask, 
+  createNewScheduledTask, 
   updateTask,
   deleteTask
 }

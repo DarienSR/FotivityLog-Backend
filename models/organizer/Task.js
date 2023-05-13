@@ -14,8 +14,8 @@ const taskSchema = new mongoose.Schema(
     reOccursOn: [ String ],
     // THESE ARE GENERALLY USED FOR PROJECT 
     project_id: { type: mongoose.Schema.Types.ObjectId, required: false, ref: 'Project' },
-    stage: { type: String, required: false },
-    belongsToProject: { type: Boolean, default: false},
+    stage: { type: Number, required: false },
+    belongsToProject: { type: Boolean, default: false }
   } 
 );
 

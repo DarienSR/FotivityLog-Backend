@@ -11,11 +11,10 @@ const sessionSchema = new mongoose.Schema(
     distracted: { type: Boolean, default: false },
     social: { type: Boolean, default: false },
     deep_work: { type: Boolean, default: false }, // going in your study session with a purpose and desired outcome
-    focused: { type: Boolean, default: false }
-  },
-  {
-    timestamps: true
-  }
+    focused: { type: Boolean, default: false },
+    tag:  { type: String, default: "" },
+    subTag: { type: String, default: "" }
+  } 
 );
 
 module.exports = mongoose.model('Session', sessionSchema)
