@@ -13,13 +13,13 @@ router.route('/:userID/project/:id')
   .get(tasksController.getAllProjectTasks)
 
 
-router.route('/:userID/:id')
+router.route('/:user_id/:id')
 .put(tasksController.updateTask)
+.delete(tasksController.deleteTask)
 
 router.route('/:userID')
   .get(tasksController.getTaskById)
   .post(tasksController.createNewTask)
   .put(tasksController.updateTask)
-  .delete(tasksController.deleteTask)
 
 module.exports = router;

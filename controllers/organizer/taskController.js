@@ -85,23 +85,25 @@ const createNewScheduledTask = asyncHandler(async (req, res) => {
 // @route patch /tasks
 // @access public
 const updateTask = asyncHandler(async (req, res) => {
-  console.log("Updating: ", req.body)
-  const { id, completed_on, finish_by, tags, notes, links, reoccuring, reOccursOn, stage } = req.body
+  console.log("Updating: ", req.body, req.params)
+  const { user_id, task, id, completed_on, finish_by, tags, notes, links, reoccuring, reOccursOn, stage } = req.body
 
+  const updatedTask = await Task.findById(new ObjectId(id)).exec()
 
-  const task = await Task.findById(id).exec()
   if(!task) return res.status(400).json({message: 'Task was not updated' })
-  task.completed_on = completed_on
-  task.finish_by = finish_by
-  task.tags = tags
-  task.notes = notes
-  task.links = links
-  task.reoccuring = reoccuring
-  task.reOccursOn = reOccursOn
-  task.stage = stage
 
-  const updatedTask = await task.save()
-  console.log("SUCCESS")
+  updatedTask.completed_on = completed_on
+  updatedTask.finish_by = finish_by
+  updatedTask.tags = tags
+  updatedTask.notes = notes
+  updatedTask.links = links
+  updatedTask.reoccuring = reoccuring
+  updatedTask.reOccursOn = reOccursOn
+  updatedTask.stage = stage
+  updatedTask.task = task
+
+  const savedTask = await updatedTask.save()
+  console.log(savedTask)
   res.json({ message: `Task has been updated.` })
 })
 
