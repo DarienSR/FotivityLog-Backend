@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 const taskSchema = new mongoose.Schema(
   {
     user_id: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
-    task: { type: String, required: true },
-    created_on: { type: String, required: true },
+    task: { type: String, required: true, default: "" },
+    created_on: { type: String, required: true, default: new Date()},
     completed_on: { type: String, default: null, required: false },
     finish_by: { type: String, default: "", required: false },
     tags: [ String ],

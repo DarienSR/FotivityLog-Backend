@@ -30,7 +30,7 @@ const login = asyncHandler(async (req, res) => {
             "UserInfo": {
                 "username": foundUser.username,
                 "email": foundUser.email,
-                "id": foundUser._id
+                "user_id": foundUser._id
             }
         },
         process.env.ACCESS_TOKEN_SECRET,
@@ -80,7 +80,7 @@ const refresh = (req, res) => {
                   "UserInfo": {
                     "username": foundUser.username,
                     "email": foundUser.email,
-                    "id": foundUser._id
+                    "user_id": foundUser._id
                 }
                 },
                 process.env.ACCESS_TOKEN_SECRET,

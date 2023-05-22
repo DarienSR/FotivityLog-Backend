@@ -1,4 +1,4 @@
-const Task = require('../../models/organizer/Task')
+const Task = require('../models/Task')
 const asyncHandler = require('express-async-handler')
 var ObjectId = require('mongodb').ObjectId;
 
@@ -7,7 +7,7 @@ var ObjectId = require('mongodb').ObjectId;
 // @access public
 const getAllScheduledTasks = asyncHandler(async (req, res) => {
   console.log(req.body, req.params)
-  const tasks = await Task.find({$and: [ { user_id: new ObjectId(req.params.userID) }, {belongsToProject: false}, { completed_on: null }]}).lean()
+  const tasks = await Task.find({$and: [ { user_id: new ObjectId(req.params.user_id) }, {belongsToProject: false}, { completed_on: null }]}).lean()
 
   console.log(tasks)
   if(!tasks || tasks.length <= 0) // optional chaning. Check to see if users exists, if true check length 
@@ -19,7 +19,7 @@ const getAllScheduledTasks = asyncHandler(async (req, res) => {
 // @route GET /tasks/project/:id
 const getAllProjectTasks = asyncHandler(async (req, res) => {
   console.log(req.params)
-  const tasks = await Task.find({$and: [ { user_id: new ObjectId(req.params.userID) }, {project_id: new ObjectId(req.params.id)}]}).lean()
+  const tasks = await Task.find({$and: [ { user_id: new ObjectId(req.params.user_id) }, {project_id: new ObjectId(req.params.id)}]}).lean()
   console.log(tasks)
   if(!tasks || tasks.length <= 0) // optional chaning. Check to see if users exists, if true check length 
     return res.status(400).json({ message: 'No tasks found' })

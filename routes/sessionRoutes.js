@@ -5,7 +5,7 @@ const verifyJWT = require('../middleware/verifyJWT')
 
 router.use(verifyJWT) // applies to all routes 
 
-router.route('/:userID')
+router.route('/:user_id')
   .get(sessionsController.getAllSessions)
   .post(sessionsController.createNewSession)
   .put(sessionsController.updateSession)

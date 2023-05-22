@@ -1,4 +1,4 @@
-const Project = require('../../models/organizer/Project')
+const Project = require('../models/Project')
 const asyncHandler = require('express-async-handler')
 var ObjectId = require('mongodb').ObjectId;
 
@@ -7,7 +7,8 @@ var ObjectId = require('mongodb').ObjectId;
 // @access public
 const getAllProjects = asyncHandler(async (req, res) => {
   console.log(req.body, req.params)
-  const projects = await Project.find({ user_id: new ObjectId(req.params.userID) }).lean()
+  if(req.params.user_id === "undefined")     return res.status(400).json({ message: 'user id is not supplied' })
+  const projects = await Project.find({ user_id: new ObjectId(req.params.user_id) }).lean()
   console.log(projects)
   if(!projects || projects.length <= 0) // optional chaning. Check to see if users exists, if true check length 
     return res.status(400).json({ message: 'No projects found' })

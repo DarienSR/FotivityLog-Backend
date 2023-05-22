@@ -24,8 +24,8 @@ app.use('/auth', require('./routes/authRoutes'))
 app.use('/users', require('./routes/userRoutes'))
 app.use('/sessions', require('./routes/sessionRoutes'))
 
-app.use('/tasks', require('./routes/organizer/taskRoutes'))
-app.use('/projects', require('./routes/organizer/projectRoutes'))
+app.use('/tasks', require('./routes/taskRoutes'))
+app.use('/projects', require('./routes/projectRoutes'))
 
 
 

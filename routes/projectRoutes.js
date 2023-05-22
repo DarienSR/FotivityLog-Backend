@@ -1,19 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const projectController = require('../../controllers/organizer/projectController')
-const verifyJWT = require('../../middleware/verifyJWT')
+const projectController = require('../controllers/projectController')
+const verifyJWT = require('../middleware/verifyJWT')
 
 router.use(verifyJWT) // applies to all routes 
 
-
-  
-router.route('/:userID')
+router.route('/:user_id')
   .get(projectController.getAllProjects)
   .post(projectController.createNewProject)
 
-
-
-router.route('/:userID/projects/:id')
+router.route('/:user_id/projects/:id')
   .get(projectController.getProjectById)
   .put(projectController.updateProject)
   .delete(projectController.deleteProject)

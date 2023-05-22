@@ -7,8 +7,8 @@ var ObjectId = require('mongodb').ObjectId;
 // @access public
 const getAllSessions = asyncHandler(async (req, res) => {
   console.log(req.params)
-  const sessions = await Session.find({user_id: new ObjectId(req.params.userID)}).lean()
-  console.log(req.params.userID, sessions)
+  const sessions = await Session.find({user_id: new ObjectId(req.params.user_id)}).lean()
+  console.log(req.params.user_id, sessions)
   if(!sessions || sessions.length <= 0) // optional chaning. Check to see if users exists, if true check length 
     return res.status(400).json({ message: 'No sessions found' })
   res.json(sessions)
