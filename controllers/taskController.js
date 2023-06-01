@@ -6,10 +6,10 @@ var ObjectId = require('mongodb').ObjectId;
 // @route GET /tasks/schedule
 // @access public
 const getAllScheduledTasks = asyncHandler(async (req, res) => {
-  console.log(req.body, req.params)
-  const tasks = await Task.find({$and: [ { user_id: new ObjectId(req.params.user_id) }, {belongsToProject: false}, { completed_on: null }]}).lean()
+  console.log("scheduled: ", req.body, req.params)
+  const tasks = await Task.find({$and: [ { user_id: new ObjectId(req.params.user_id) }, { goal_id: null}, { project_id: null }]}).lean()
 
-  console.log(tasks)
+  console.log("found tasks: ", tasks)
   if(!tasks || tasks.length <= 0) // optional chaning. Check to see if users exists, if true check length 
     return res.status(400).json({ message: 'No tasks found' })
   res.json(tasks)
@@ -86,7 +86,7 @@ const createNewScheduledTask = asyncHandler(async (req, res) => {
 // @access public
 const updateTask = asyncHandler(async (req, res) => {
   console.log("Updating: ", req.body, req.params)
-  const { user_id, task, id, completed_on, finish_by, tags, notes, links, reoccuring, reOccursOn, stage } = req.body
+  const { user_id, task, id, completed_on, finish_by, tags, notes, links, reoccuring, reOccursOn, stage, values, tag } = req.body
 
   const updatedTask = await Task.findById(new ObjectId(id)).exec()
 
@@ -95,6 +95,8 @@ const updateTask = asyncHandler(async (req, res) => {
   updatedTask.completed_on = completed_on
   updatedTask.finish_by = finish_by
   updatedTask.tags = tags
+  updatedTask.values = values
+  updatedTask.tag = tag
   updatedTask.notes = notes
   updatedTask.links = links
   updatedTask.reoccuring = reoccuring

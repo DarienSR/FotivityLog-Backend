@@ -5,7 +5,7 @@ const verifyJWT = require('../middleware/verifyJWT')
 
 router.use(verifyJWT) // applies to all routes 
 
-router.route('/:user_id/schedule/')
+router.route('/:user_id/schedule')
   .get(tasksController.getAllScheduledTasks)
   .post(tasksController.createNewScheduledTask)
 

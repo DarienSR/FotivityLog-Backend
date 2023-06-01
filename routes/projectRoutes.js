@@ -9,7 +9,7 @@ router.route('/:user_id')
   .get(projectController.getAllProjects)
   .post(projectController.createNewProject)
 
-router.route('/:user_id/projects/:id')
+router.route('/project/:id')
   .get(projectController.getProjectById)
   .put(projectController.updateProject)
   .delete(projectController.deleteProject)

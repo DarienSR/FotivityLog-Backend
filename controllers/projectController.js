@@ -17,7 +17,9 @@ const getAllProjects = asyncHandler(async (req, res) => {
 
 
 const getProjectById = asyncHandler(async (req, res) => {
-  const projects = await Project.find({ $and: [{_id: new ObjectId(req.params.id)}, {user_id: new ObjectId(req.params.id)}]}).lean()
+  console.log("Getting by id: ", req.params, req.body)
+  const projects = await Project.find({_id: new ObjectId(req.params.id)}).lean()
+  console.log("Found: ", projects)
   if(!projects || projects.length <= 0) // optional chaning. Check to see if users exists, if true check length 
     return res.status(400).json({ message: 'No projects found' })
   res.json(projects)
@@ -51,7 +53,7 @@ const createNewProject = asyncHandler(async (req, res) => {
 // @access public
 const updateProject = asyncHandler(async (req, res) => {
   console.log("Updating: ", req.body)
-  const { id, completed_on, finish_by, tags, notes, links, reoccuring, reOccursOn, stage } = req.body
+  const { id, completed_on, tags, finish_by, notes, links, reoccuring, reOccursOn, stage } = req.body
 
 
   const project = await Project.findById(id).exec()
@@ -64,6 +66,7 @@ const updateProject = asyncHandler(async (req, res) => {
   project.reoccuring = reoccuring
   project.reOccursOn = reOccursOn
   project.stage = stage
+  project.tags = tags
 
   const updatedProject = await project.save()
   console.log("SUCCESS")

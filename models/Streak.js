@@ -7,7 +7,8 @@ const streakSchema = new mongoose.Schema(
     streakName: { type: String, required: true },
     currentCount: { type: Number, required: true, default: 0 },
     highestCount: { type: Number, required: true, default: 0 },
-    reOccursOn: [ String ]
+    reOccursOn: [ String ],
+    accomplishedOn: [{ date: Date} ]
   } 
 );
 
