@@ -69,12 +69,15 @@ const createNewSession = asyncHandler(async (req, res) => {
 // @access public
 const updateSession = asyncHandler(async (req, res) => {
   console.log("Updating: ", req.body)
-  const { id, start_time, end_time, topic, desc, location, distracted, social, deep_work, focused } = req.body
+  const { id, start_time, end_time, topic, desc, location, distracted, social, deep_work, focused, linkToTask } = req.body
 
 
   const session = await Session.findById(id).exec()
-  console.log("dd")
+
+
   if(!session) return res.status(400).json({message: 'Session was not updated' })
+  
+  if(session.linkToTask !== null) session.linkToTask = new ObjectId(linkToTask)
   session.start_time = start_time
   session.end_time = end_time
   session.topic = topic

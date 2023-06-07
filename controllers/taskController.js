@@ -42,6 +42,9 @@ const createNewTask = asyncHandler(async (req, res) => {
 
   console.log(req.body, req.params)
 
+  if(req.body.belongsToProject === false) req.body.belongsToProject = null;
+  if(req.body.belongsToGoal === false) req.body.belongsToGoal = null;
+
   // add required data
   req.body.created_on = new Date().toString() 
   
@@ -86,7 +89,7 @@ const createNewScheduledTask = asyncHandler(async (req, res) => {
 // @access public
 const updateTask = asyncHandler(async (req, res) => {
   console.log("Updating: ", req.body, req.params)
-  const { user_id, task, id, completed_on, finish_by, tags, notes, links, reoccuring, reOccursOn, stage, values, tag } = req.body
+  const { user_id, task, id, completed_on, finish_by, tags, notes, links, reoccuring, reOccursOn, stage, values, tag, scheduled_for } = req.body
 
   const updatedTask = await Task.findById(new ObjectId(id)).exec()
 
@@ -99,6 +102,7 @@ const updateTask = asyncHandler(async (req, res) => {
   updatedTask.tag = tag
   updatedTask.notes = notes
   updatedTask.links = links
+  updatedTask.scheduled_for = scheduled_for
   updatedTask.reoccuring = reoccuring
   updatedTask.reOccursOn = reOccursOn
   updatedTask.stage = stage
