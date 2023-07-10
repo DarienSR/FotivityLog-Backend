@@ -8,6 +8,7 @@ const taskSchema = new mongoose.Schema(
     scheduled_for: {type: String, required: false, default: new Date()},
     timeStart: {type: String, required: false, default: null},
     timeFinish: {type: String, required: false, default: null},
+    completed: { type: Boolean, required: true, default: false },
     completed_on: { type: String, default: null, required: false },
     finish_by: { type: String, default: "", required: false }, // date assigned
     value: { type: Number, default: 0 },

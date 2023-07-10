@@ -89,7 +89,7 @@ const createNewScheduledTask = asyncHandler(async (req, res) => {
 // @access public
 const updateTask = asyncHandler(async (req, res) => {
   console.log("Updating: ", req.body, req.params)
-  const { user_id, task, id, completed_on, finish_by, tags, notes, links, reoccuring, reOccursOn, stage, values, tag, scheduled_for, timeStart, timeFinish} = req.body
+  const { user_id, task, id, completed_on, finish_by, tags, notes, links, reoccuring, reOccursOn, stage, values, tag, scheduled_for, timeStart, timeFinish, completed} = req.body
 
   const updatedTask = await Task.findById(new ObjectId(id)).exec()
 
@@ -109,7 +109,7 @@ const updateTask = asyncHandler(async (req, res) => {
   updatedTask.task = task
   updatedTask.timeStart = timeStart
   updatedTask.timeFinish = timeFinish
-
+  updatedTask.completed = completed
 
   const savedTask = await updatedTask.save()
   console.log(savedTask)
