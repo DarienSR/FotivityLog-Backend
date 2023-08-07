@@ -7,9 +7,6 @@ const bcrypt = require('bcrypt')
 // @route POST /users
 // @access public
 const createNewUser = asyncHandler(async (req, res) => {
-
-  return res.status(400).json({ message: "Sign up is currently restricted. If you are interested in signing up please email fotivitylog@gmail.com" })
-
   const { username, password, email} = req.body
 
   // data confirmation
