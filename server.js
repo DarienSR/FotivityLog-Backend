@@ -24,14 +24,11 @@ app.use('/auth', require('./routes/authRoutes'))
 app.use('/users', require('./routes/userRoutes'))
 app.use('/sessions', require('./routes/sessionRoutes'))
 
-app.use('/tasks', require('./routes/taskRoutes'))
 app.use('/projects', require('./routes/projectRoutes'))
-
-
-
-
+app.use('/schedule', require('./routes/scheduleRoutes'))
 
 app.use(errorHandler)
+
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB')
   app.listen(PORT, () => console.log(`Server is running on port ${ PORT }`));
