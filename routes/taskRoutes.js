@@ -12,6 +12,8 @@ router.route('/:user_id/schedule')
 router.route('/:user_id/project/:id')
   .get(tasksController.getAllProjectTasks)
 
+router.route('/scheduled-for/:user_id/:date')
+  .get(tasksController.getTasksByScheduledFor)
 
 router.route('/:user_id/:id')
 .put(tasksController.updateTask)

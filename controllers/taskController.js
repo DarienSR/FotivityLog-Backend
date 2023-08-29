@@ -33,6 +33,13 @@ const getTaskById = asyncHandler(async (req, res) => {
   res.json(tasks)
 })
 
+const getTasksByScheduledFor = asyncHandler(async (req, res) => {
+  console.log('ScheduledFor', req.params);
+  const tasks = await Task.find({ $and: [{scheduled_for: req.params.date}, {user_id: new ObjectId(req.params.user_id)}]}).lean()
+  if(!tasks || tasks.length <= 0) // optional chaning. Check to see if users exists, if true check length 
+    return res.status(400).json({ message: 'No tasks found' })
+  res.json(tasks)
+})
 
 // @desc create new task
 // @route POST /tasks
@@ -47,7 +54,6 @@ const createNewTask = asyncHandler(async (req, res) => {
 
   // add required data
   req.body.created_on = new Date().toString() 
-  
   // create and store new task
   const newTask = await Task.create(req.body)
 
@@ -89,14 +95,16 @@ const createNewScheduledTask = asyncHandler(async (req, res) => {
 // @access public
 const updateTask = asyncHandler(async (req, res) => {
   console.log("Updating: ", req.body, req.params)
-  const { user_id, task, id, completed_on, finish_by, tags, notes, links, reoccuring, reOccursOn, stage, values, tag, scheduled_for } = req.body
+  const { user_id, task, id, completed_on, finish_by, tags, notes, links, reoccuring, reOccursOn, stage, values, tag, scheduled_for, timeStart, timeFinish, completed} = req.body
 
   const updatedTask = await Task.findById(new ObjectId(id)).exec()
+  console.log('Found: ', updatedTask)
 
-  if(!task) return res.status(400).json({message: 'Task was not updated' })
 
+  if(!updatedTask) return res.status(400).json({message: 'Task was not updated' })
+  if(completed_on === null) completed_on = new Date()
   updatedTask.completed_on = completed_on
-  updatedTask.finish_by = finish_by
+  updatedTask.finish_by = finish_by || ''
   updatedTask.tags = tags
   updatedTask.values = values
   updatedTask.tag = tag
@@ -107,10 +115,13 @@ const updateTask = asyncHandler(async (req, res) => {
   updatedTask.reOccursOn = reOccursOn
   updatedTask.stage = stage
   updatedTask.task = task
+  updatedTask.timeStart = timeStart
+  updatedTask.timeFinish = timeFinish
+  updatedTask.completed = completed
 
   const savedTask = await updatedTask.save()
-  console.log(savedTask)
-  res.json({ message: `Task has been updated.` })
+  console.log('Saved to: ', updatedTask)
+  res.json({ response: {message: `Success.`, updated: updatedTask } })
 })
 
 
@@ -131,7 +142,7 @@ const deleteTask = asyncHandler(async (req, res) => {
 
   const result = await task.deleteOne()
 
-  const reply = `Task has been deleted.`
+  const reply = `Task has been deleted.`.
   res.json(reply)
 })
 
@@ -139,6 +150,7 @@ module.exports = {
   getAllScheduledTasks,
   getAllProjectTasks,
   getTaskById,
+  getTasksByScheduledFor,
   createNewTask, 
   createNewScheduledTask, 
   updateTask,
