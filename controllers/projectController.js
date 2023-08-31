@@ -5,10 +5,13 @@ var ObjectId = require('mongodb').ObjectId;
 // @desc get all active projects belonging to a user, that aren't attached to a project
 // @route GET /projects/:id
 // @access public
-const getAllProjects = asyncHandler(async (req, res) => {
+const getProjects = asyncHandler(async (req, res) => {
   console.log(req.body, req.params)
-  if(req.params.user_id === "undefined")     return res.status(400).json({ message: 'user id is not supplied' })
-  const projects = await Project.find({ user_id: new ObjectId(req.params.user_id) }).lean()
+  const query = [ { user_id: new ObjectId(req.params.user_id) } ];
+
+  (req.query._id) ? query.push({ _id: new ObjectId(req.query._id) }) : ''; // filter by id
+
+  const projects = await Project.find({$and: query }).lean()
   console.log(projects)
   if(!projects || projects.length <= 0) // optional chaning. Check to see if users exists, if true check length 
     return res.status(400).json({ message: 'No projects found' })
@@ -16,14 +19,6 @@ const getAllProjects = asyncHandler(async (req, res) => {
 })
 
 
-const getProjectById = asyncHandler(async (req, res) => {
-  console.log("Getting by id: ", req.params, req.body)
-  const projects = await Project.find({_id: new ObjectId(req.params.id)}).lean()
-  console.log("Found: ", projects)
-  if(!projects || projects.length <= 0) // optional chaning. Check to see if users exists, if true check length 
-    return res.status(400).json({ message: 'No projects found' })
-  res.json(projects)
-})
 
 
 // @desc create new project
@@ -96,8 +91,7 @@ const deleteProject = asyncHandler(async (req, res) => {
 })
 
 module.exports = {
-  getAllProjects,
-  getProjectById,
+  getProjects,
   createNewProject, 
   updateProject,
   deleteProject

@@ -1,4 +1,4 @@
-const Task = require('../models/Task')
+const Task = require('../models/ProjectTask')
 const asyncHandler = require('express-async-handler')
 var ObjectId = require('mongodb').ObjectId;
 
@@ -98,7 +98,7 @@ const updateTask = asyncHandler(async (req, res) => {
   const { user_id, task, id, completed_on, finish_by, tags, notes, links, reoccuring, reOccursOn, stage, values, tag, scheduled_for, timeStart, timeFinish, completed} = req.body
 
   const updatedTask = await Task.findById(new ObjectId(id)).exec()
-  console.log('Found: ', updatedTask)
+  console.log('Found: ', updatedTask) 
 
 
   if(!updatedTask) return res.status(400).json({message: 'Task was not updated' })
