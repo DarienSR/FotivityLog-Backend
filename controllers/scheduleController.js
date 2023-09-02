@@ -85,17 +85,15 @@ const updateScheduledTask = asyncHandler(async(req, res) => {
 const deleteTaskById = asyncHandler(async (req, res) => {
   console.log("Delete Task: ", req.body)
 
-  const { id } = req.body
+  const { _id } = req.body
 
-  if(!id)
+  if(!_id)
     return res.status(400).json({ message: 'Task ID is required' })
 
-  const task = await ScheduleTask.findById(id).exec()
-
+  const task = await ScheduleTask.findById(_id).exec()
   if(!task) return res.status(400).json({ message: 'User not found' })
 
-  const result = await ScheduleTask.deleteOne()
-
+  const result = await task.deleteOne()
   res.json(result)
 })
 

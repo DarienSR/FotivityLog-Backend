@@ -54,7 +54,7 @@ const updateProjectTask = asyncHandler(async(req, res) => {
   taskToUpdate.notes = sanitize(notes) || [];
   taskToUpdate.links = sanitize(links) || [];
   taskToUpdate.value = sanitize(value) || 0;
-  taskToUpdate.stage = sanitize(stage) || '';
+  taskToUpdate.stage = sanitize(stage) || 0;
   // save task
   const savedTask = await taskToUpdate.save();
   // log response, give back updated task

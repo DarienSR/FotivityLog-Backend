@@ -12,7 +12,6 @@ const getProjects = asyncHandler(async (req, res) => {
   (req.query._id) ? query.push({ _id: new ObjectId(req.query._id) }) : ''; // filter by id
 
   const projects = await Project.find({$and: query }).lean()
-  console.log(projects)
   if(!projects || projects.length <= 0) // optional chaning. Check to see if users exists, if true check length 
     return res.status(400).json({ message: 'No projects found' })
   res.json(projects)

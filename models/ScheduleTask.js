@@ -17,4 +17,4 @@ const scheduleTaskSchema = new mongoose.Schema(
   } 
 );
 
-module.exports = mongoose.model('ScheduleTask', scheduleTaskSchema)
+module.exports = mongoose.model('Schedule_Task', scheduleTaskSchema)
